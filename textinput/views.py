@@ -54,7 +54,7 @@ def pdf_input(request):
     config.read('config.ini')      
     if request.method == "POST":
         uploaded_files = request.FILES.get("pdf_paper")
-        pdb.set_trace()
+#         pdb.set_trace()
         file_path = uploaded_files.temporary_file_path()
         print(file_path)
         if not os.path.exists(id_paper_input):
