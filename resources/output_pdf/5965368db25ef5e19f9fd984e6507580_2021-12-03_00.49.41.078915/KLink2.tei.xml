@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Klink-2: Integrating Multiple Web Sources to Generate Semantic Topic Networks</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher>Springer International Publishing</publisher>
+				<availability status="unknown"><p>Copyright Springer International Publishing</p>
+				</availability>
+				<date type="published" when="2015">2015</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Francesco</forename><surname>Osborne</surname></persName>
+							<email>francesco.osborne@open.ac.uk</email>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Knowledge Media Institute</orgName>
+								<orgName type="institution" key="instit2">The Open University</orgName>
+								<address>
+									<postCode>MK7 6AA</postCode>
+									<settlement>Milton Keynes</settlement>
+									<country key="GB">UK</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Enrico</forename><surname>Motta</surname></persName>
+							<email>enrico.motta@open.ac.uk</email>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Knowledge Media Institute</orgName>
+								<orgName type="institution" key="instit2">The Open University</orgName>
+								<address>
+									<postCode>MK7 6AA</postCode>
+									<settlement>Milton Keynes</settlement>
+									<country key="GB">UK</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Klink-2: Integrating Multiple Web Sources to Generate Semantic Topic Networks</title>
+					</analytic>
+					<monogr>
+						<title level="m">The Semantic Web - ISWC 2015</title>
+						<idno type="ISSN">0302-9743</idno>
+						<idno type="eISSN">1611-3349</idno>
+						<imprint>
+							<publisher>Springer International Publishing</publisher>
+							<biblScope unit="page" from="408" to="424"/>
+							<date type="published" when="2015" />
+						</imprint>
+					</monogr>
+					<idno type="MD5">3D57E28595AE3B3543B749115BA4ED16</idno>
+					<idno type="DOI">10.1007/978-3-319-25007-6_24</idno>
+					<ptr type="open-access" target="http://oro.open.ac.uk/43793/1/ISWC2015_CR.pdf" />
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.7.0" ident="GROBID" when="2021-12-02T19:19+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Scholarly Data</term>
+					<term>Ontology Learning</term>
+					<term>Bibliographic Data</term>
+					<term>Scholarly Ontologies</term>
+					<term>Data Mining</term>
+				</keywords>
+			</textClass>
+			<abstract>
+				<p>The amount of scholarly data available on the web is steadily increasing, enabling different types of analytics which can provide important insights into the research activity. In order to make sense of and explore this large-scale body of knowledge we need an accurate, comprehensive and up-todate ontology of research topics. Unfortunately, human crafted classifications do not satisfy these criteria, as they evolve too slowly and tend to be too coarsegrained. Current automated methods for generating ontologies of research areas also present a number of limitations, such as: i) they do not consider the rich amount of indirect statistical and semantic relationships, which can help to understand the relation between two topics-e.g., the fact that two research areas are associated with a similar set of venues or technologies; ii) they do not distinguish between different kinds of hierarchical relationships; and iii) they are not able to handle effectively ambiguous topics characterized by a noisy set of relationships. In this paper we present Klink-2, a novel approach which improves on our earlier work on automatic generation of semantic topic networks and addresses the aforementioned limitations by taking advantage of a variety of knowledge sources available on the web. In particular, Klink-2 analyses networks of research entities (including papers, authors, venues, and technologies) to infer three kinds of semantic relationships between topics. It also identifies ambiguous keywords (e.g., &quot;ontology&quot;) and separates them into the appropriate distinct topics-e.g., &quot;ontology/philosophy&quot; vs. &quot;ontology/semantic web&quot;. Our experimental evaluation shows that the ability of Klink-2 to integrate a high number of data sources and to generate topics with accurate contextual meaning yields significant improvements over other algorithms in terms of both precision and recall.</p>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+	</text>
+</TEI>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Link Prediction of Weighted Triples for Knowledge Graph Completion Within the Scholarly Domain</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Mojtaba</forename><surname>Nayyeri</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">SDA Research Group</orgName>
+								<orgName type="institution">University of Bonn</orgName>
+								<address>
+									<postCode>53115</postCode>
+									<settlement>Bonn</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="department" key="dep1">Nature-Inspired Machine Intelligence</orgName>
+								<orgName type="department" key="dep2">Institute for Applied Informatics (InfAI)</orgName>
+								<address>
+									<postCode>01069</postCode>
+									<settlement>Dresden</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Gökce</forename><forename type="middle">Müge</forename><surname>Cil</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">SDA Research Group</orgName>
+								<orgName type="institution">University of Bonn</orgName>
+								<address>
+									<postCode>53115</postCode>
+									<settlement>Bonn</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Sah</forename><surname>Vahdati</surname></persName>
+							<idno type="ORCID">0000-0002-6682-3419</idno>
+							<affiliation key="aff1">
+								<orgName type="department" key="dep1">Nature-Inspired Machine Intelligence</orgName>
+								<orgName type="department" key="dep2">Institute for Applied Informatics (InfAI)</orgName>
+								<address>
+									<postCode>01069</postCode>
+									<settlement>Dresden</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Frances</forename><surname>Osborne</surname></persName>
+							<idno type="ORCID">0000-0001-6557-3131</idno>
+							<affiliation key="aff2">
+								<orgName type="department">Knowledge Media Institute</orgName>
+								<orgName type="institution">The Open University</orgName>
+								<address>
+									<addrLine>Milton Keynes</addrLine>
+									<postCode>MK7 6AA</postCode>
+									<country key="GB">U.K</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Andrey</forename><surname>Kravchenko</surname></persName>
+							<affiliation key="aff3">
+								<orgName type="institution" key="instit1">Christ Church</orgName>
+								<orgName type="institution" key="instit2">University of Oxford</orgName>
+								<address>
+									<postCode>OX1 1DP</postCode>
+									<settlement>Oxford</settlement>
+									<country key="GB">U.K</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Simo</forename><surname>Angioni</surname></persName>
+							<idno type="ORCID">0000-0002-6682-3419</idno>
+							<affiliation key="aff4">
+								<orgName type="department">Department of Mathematics and Computer Science</orgName>
+								<orgName type="institution">University of Cagliari</orgName>
+								<address>
+									<postCode>09124</postCode>
+									<settlement>Cagliari</settlement>
+									<country key="IT">Italy</country>
+								</address>
+							</affiliation>
+						</author>
+						<author role="corresp">
+							<persName><forename type="first">Angelo</forename><surname>Salatino</surname></persName>
+							<email>angelo.salatino@open.ac.uk</email>
+							<idno type="ORCID">0000-0002-4763-3943</idno>
+							<affiliation key="aff2">
+								<orgName type="department">Knowledge Media Institute</orgName>
+								<orgName type="institution">The Open University</orgName>
+								<address>
+									<addrLine>Milton Keynes</addrLine>
+									<postCode>MK7 6AA</postCode>
+									<country key="GB">U.K</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Diego</forename><forename type="middle">Reforgiato</forename><surname>Recupero</surname></persName>
+							<idno type="ORCID">0000-0001-8646-6183</idno>
+							<affiliation key="aff4">
+								<orgName type="department">Department of Mathematics and Computer Science</orgName>
+								<orgName type="institution">University of Cagliari</orgName>
+								<address>
+									<postCode>09124</postCode>
+									<settlement>Cagliari</settlement>
+									<country key="IT">Italy</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Enrico</forename><surname>Motta</surname></persName>
+							<idno type="ORCID">0000-0003-0015-1952</idno>
+							<affiliation key="aff2">
+								<orgName type="department">Knowledge Media Institute</orgName>
+								<orgName type="institution">The Open University</orgName>
+								<address>
+									<addrLine>Milton Keynes</addrLine>
+									<postCode>MK7 6AA</postCode>
+									<country key="GB">U.K</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><roleName>AND</roleName><forename type="first">Jens</forename><surname>Lehmann</surname></persName>
+							<idno type="ORCID">0000-0001-9108-4278</idno>
+							<affiliation key="aff0">
+								<orgName type="laboratory">SDA Research Group</orgName>
+								<orgName type="institution">University of Bonn</orgName>
+								<address>
+									<postCode>53115</postCode>
+									<settlement>Bonn</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff5">
+								<orgName type="institution">Fraunhofer IAIS</orgName>
+								<address>
+									<postCode>53757</postCode>
+									<settlement>Dresden</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Link Prediction of Weighted Triples for Knowledge Graph Completion Within the Scholarly Domain</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">429D66BB84E3CD79212494B2B1D6AAC4</idno>
+					<idno type="DOI">10.1109/ACCESS.2021.3105183</idno>
+					<note type="submission">Received July 19, 2021, accepted August 5, 2021, date of publication August 16, 2021, date of current version August 26, 2021.</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.7.0" ident="GROBID" when="2021-11-21T18:11+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>INDEX TERMS Scholarly data</term>
+					<term>knowledge graphs</term>
+					<term>knowledge graph embeddings</term>
+					<term>loss functions</term>
+					<term>link prediction</term>
+					<term>scholarly communication</term>
+					<term>science of science</term>
+				</keywords>
+			</textClass>
+			<abstract>
+				<p>Knowledge graphs (KGs) are widely used for modeling scholarly communication, performing scientometric analyses, and supporting a variety of intelligent services to explore the literature and predict research dynamics. However, they often suffer from incompleteness (e.g., missing affiliations, references, research topics), leading to a reduced scope and quality of the resulting analyses. This issue is usually tackled by computing knowledge graph embeddings (KGEs) and applying link prediction techniques. However, only a few KGE models are capable of taking weights of facts in the knowledge graph into account. Such weights can have different meanings, e.g. describe the degree of association or the degree of truth of a certain triple. In this paper, we propose the Weighted Triple Loss, a new loss function for KGE models that takes full advantage of the additional numerical weights on facts and it is even tolerant to incorrect weights. We also extend the Rule Loss, a loss function that is able to exploit a set of logical rules, in order to work with weighted triples. The evaluation of our solutions on several knowledge graphs indicates significant performance improvements with respect to the state of the art. Our main use case is the large-scale AIDA knowledge graph, which describes 21 million research articles. Our approach enables to complete information about affiliation types, countries, and research topics, greatly improving the scope of the resulting scientometrics analyses and providing better support to systems for monitoring and predicting research dynamics.</p>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+	</text>
+</TEI>

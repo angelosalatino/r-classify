@@ -1,0 +1,787 @@
+{
+    "syntactic": [
+        "twitter",
+        "data privacy",
+        "graph theory",
+        "social networks",
+        "privacy",
+        "network topology",
+        "micro-blog",
+        "sensitive informations",
+        "online social networks",
+        "anonymization",
+        "data mining",
+        "anonymity",
+        "real-world networks"
+    ],
+    "semantic": [
+        "social networks",
+        "online social networks",
+        "data mining",
+        "privacy",
+        "data privacy",
+        "anonymization",
+        "anonymity",
+        "twitter",
+        "micro-blog",
+        "topology",
+        "network topology",
+        "graph theory",
+        "social networking sites",
+        "network architecture",
+        "association rules",
+        "anonymous communication",
+        "individual privacy",
+        "social relationships",
+        "social media",
+        "online communities",
+        "social graphs",
+        "knowledge discovery",
+        "privacy protection",
+        "privacy and security",
+        "software developer",
+        "privacy preserving",
+        "directed graphs",
+        "weighted graph",
+        "facebook",
+        "social relations",
+        "social computing",
+        "social aspect",
+        "communication networks",
+        "mesh network",
+        "knowledge discovery in database",
+        "integrated data",
+        "user privacy",
+        "personal privacy",
+        "security and privacy",
+        "network components",
+        "online learning",
+        "user information",
+        "mobile users",
+        "web page",
+        "association mining",
+        "data mining techniques",
+        "k-anonymity",
+        "data anonymization",
+        "unlinkability",
+        "adaptive algorithms",
+        "hybrid algorithms",
+        "general graph",
+        "web developers",
+        "software frameworks",
+        "formal framework",
+        "untraceability",
+        "digraph",
+        "graph structures",
+        "bipartite graphs",
+        "blogs",
+        "bloggers",
+        "service management",
+        "sharing information",
+        "video sharing",
+        "bit error rate",
+        "topological structure",
+        "routing scheme",
+        "gateway nodes",
+        "source nodes",
+        "additive noise",
+        "background noise",
+        "gaussian noise (electronic)",
+        "noise source",
+        "white noise",
+        "data security",
+        "system theory",
+        "combinatorial mathematics",
+        "complex network theory",
+        "online social networkings",
+        "user-generated content"
+    ],
+    "union": [
+        "knowledge discovery in database",
+        "mobile users",
+        "blogs",
+        "social relations",
+        "twitter",
+        "association rules",
+        "online social networkings",
+        "individual privacy",
+        "social graphs",
+        "data mining",
+        "integrated data",
+        "k-anonymity",
+        "video sharing",
+        "personal privacy",
+        "complex network theory",
+        "topological structure",
+        "data security",
+        "web developers",
+        "social networks",
+        "bloggers",
+        "social aspect",
+        "additive noise",
+        "background noise",
+        "graph structures",
+        "topology",
+        "network topology",
+        "formal framework",
+        "user information",
+        "directed graphs",
+        "bipartite graphs",
+        "adaptive algorithms",
+        "data anonymization",
+        "service management",
+        "privacy",
+        "software developer",
+        "bit error rate",
+        "facebook",
+        "social networking sites",
+        "sensitive informations",
+        "online social networks",
+        "source nodes",
+        "software frameworks",
+        "real-world networks",
+        "untraceability",
+        "online communities",
+        "graph theory",
+        "data mining techniques",
+        "sharing information",
+        "association mining",
+        "user privacy",
+        "anonymous communication",
+        "anonymity",
+        "digraph",
+        "social computing",
+        "social media",
+        "online learning",
+        "communication networks",
+        "routing scheme",
+        "general graph",
+        "network architecture",
+        "unlinkability",
+        "gaussian noise (electronic)",
+        "hybrid algorithms",
+        "weighted graph",
+        "combinatorial mathematics",
+        "knowledge discovery",
+        "user-generated content",
+        "white noise",
+        "network components",
+        "system theory",
+        "web page",
+        "gateway nodes",
+        "noise source",
+        "privacy protection",
+        "mesh network",
+        "privacy and security",
+        "security and privacy",
+        "micro-blog",
+        "social relationships",
+        "anonymization",
+        "data privacy",
+        "privacy preserving"
+    ],
+    "enhanced": [
+        "global system for mobile communications",
+        "mobile devices",
+        "world wide web",
+        "computer science",
+        "data integration",
+        "database systems",
+        "video contents",
+        "complex networks",
+        "network security",
+        "web development",
+        "sociology",
+        "spurious signal noise",
+        "acoustic noise",
+        "graphic methods",
+        "computer networks",
+        "formal methods",
+        "recommender systems",
+        "personal information",
+        "software",
+        "network management",
+        "quality of service",
+        "telecommunication services",
+        "information technology",
+        "computer security",
+        "software architecture",
+        "communication channels (information theory)",
+        "signal to noise ratio",
+        "probability",
+        "access control",
+        "online systems",
+        "ad hoc networks",
+        "wireless sensor networks",
+        "routing protocols",
+        "computer programming",
+        "electronic document identification systems",
+        "theoretical computer science",
+        "information sharing",
+        "associative processing",
+        "authentication",
+        "communication",
+        "communication systems",
+        "ubiquitous computing",
+        "interactive computer systems",
+        "human engineering",
+        "telecommunication networks",
+        "routing algorithms",
+        "graph g",
+        "approximation algorithms",
+        "evolutionary algorithms",
+        "particle swarm optimization (pso)",
+        "knowledge acquisition",
+        "web 2.0",
+        "user interfaces",
+        "program compilers",
+        "artificial intelligence",
+        "gateways (computer networks)",
+        "cryptography",
+        "wireless mesh networks (wmn)",
+        "security systems"
+    ],
+    "explanation": {
+        "social networks": [
+            "microblogging",
+            "twitter",
+            "social",
+            "social networking",
+            "social networks",
+            "social network",
+            "photo sharing",
+            "online social networks",
+            "real-world networks"
+        ],
+        "online social networks": [
+            "online social networks",
+            "social networking",
+            "social networks",
+            "social network"
+        ],
+        "sensitive informations": [
+            "sensitive information"
+        ],
+        "privacy": [
+            "data privacy",
+            "anonymized",
+            "privacy",
+            "anonymous",
+            "anonymization",
+            "anonymous twitter",
+            "anonymity",
+            "sensitive information"
+        ],
+        "anonymization": [
+            "anonymization",
+            "anonymized"
+        ],
+        "anonymity": [
+            "anonymous",
+            "anonymous twitter",
+            "anonymity"
+        ],
+        "real-world networks": [
+            "real-world networks"
+        ],
+        "twitter": [
+            "microblogging",
+            "twitter",
+            "anonymous twitter",
+            "microblogging service",
+            "twitter graph"
+        ],
+        "micro-blog": [
+            "microblogging",
+            "twitter",
+            "anonymous twitter",
+            "microblogging service",
+            "twitter graph"
+        ],
+        "network topology": [
+            "network topology",
+            "topology"
+        ],
+        "data mining": [
+            "data privacy",
+            "anonymized",
+            "mining",
+            "privacy",
+            "mining researchers",
+            "anonymization",
+            "data mining"
+        ],
+        "data privacy": [
+            "privacy",
+            "data privacy"
+        ],
+        "graph theory": [
+            "graph theory",
+            "graph",
+            "graphs"
+        ],
+        "topology": [
+            "network topology",
+            "topology"
+        ],
+        "social networking sites": [
+            "online social networks",
+            "social networking",
+            "social networks",
+            "photo sharing",
+            "social network"
+        ],
+        "network architecture": [
+            "networks",
+            "network",
+            "world networks"
+        ],
+        "association rules": [
+            "mining",
+            "mining researchers",
+            "data mining"
+        ],
+        "anonymous communication": [
+            "anonymous twitter",
+            "anonymous",
+            "anonymity"
+        ],
+        "individual privacy": [
+            "privacy",
+            "data privacy"
+        ],
+        "social relationships": [
+            "social",
+            "social network"
+        ],
+        "social media": [
+            "microblogging",
+            "twitter",
+            "social",
+            "social networking"
+        ],
+        "online communities": [
+            "social networks",
+            "online social networks",
+            "social network"
+        ],
+        "social graphs": [
+            "social networks",
+            "social network"
+        ],
+        "knowledge discovery": [
+            "mining",
+            "data mining"
+        ],
+        "privacy protection": [
+            "privacy",
+            "data privacy"
+        ],
+        "privacy and security": [
+            "privacy",
+            "data privacy"
+        ],
+        "software developer": [
+            "application developers",
+            "developers"
+        ],
+        "privacy preserving": [
+            "data privacy",
+            "anonymization",
+            "anonymized",
+            "privacy"
+        ],
+        "directed graphs": [
+            "graph",
+            "graphs"
+        ],
+        "weighted graph": [
+            "graph",
+            "graphs"
+        ],
+        "facebook": [
+            "twitter",
+            "photo sharing"
+        ],
+        "social relations": [
+            "social"
+        ],
+        "social computing": [
+            "social"
+        ],
+        "social aspect": [
+            "social"
+        ],
+        "communication networks": [
+            "networks"
+        ],
+        "mesh network": [
+            "networks"
+        ],
+        "knowledge discovery in database": [
+            "data mining"
+        ],
+        "integrated data": [
+            "data"
+        ],
+        "user privacy": [
+            "privacy"
+        ],
+        "personal privacy": [
+            "privacy"
+        ],
+        "security and privacy": [
+            "privacy"
+        ],
+        "network components": [
+            "network"
+        ],
+        "online learning": [
+            "online"
+        ],
+        "user information": [
+            "information"
+        ],
+        "mobile users": [
+            "users"
+        ],
+        "web page": [
+            "users"
+        ],
+        "association mining": [
+            "mining"
+        ],
+        "data mining techniques": [
+            "data mining"
+        ],
+        "k-anonymity": [
+            "anonymization"
+        ],
+        "data anonymization": [
+            "anonymization"
+        ],
+        "unlinkability": [
+            "anonymity"
+        ],
+        "adaptive algorithms": [
+            "algorithm"
+        ],
+        "hybrid algorithms": [
+            "algorithm"
+        ],
+        "general graph": [
+            "graph"
+        ],
+        "web developers": [
+            "developers"
+        ],
+        "software frameworks": [
+            "framework"
+        ],
+        "formal framework": [
+            "framework"
+        ],
+        "untraceability": [
+            "anonymity"
+        ],
+        "digraph": [
+            "graphs"
+        ],
+        "graph structures": [
+            "graphs"
+        ],
+        "bipartite graphs": [
+            "graphs"
+        ],
+        "blogs": [
+            "microblogging"
+        ],
+        "bloggers": [
+            "microblogging"
+        ],
+        "service management": [
+            "service"
+        ],
+        "sharing information": [
+            "sharing"
+        ],
+        "video sharing": [
+            "photo sharing"
+        ],
+        "bit error rate": [
+            "error rate"
+        ],
+        "topological structure": [
+            "topology"
+        ],
+        "routing scheme": [
+            "network topology"
+        ],
+        "gateway nodes": [
+            "nodes"
+        ],
+        "source nodes": [
+            "nodes"
+        ],
+        "additive noise": [
+            "noise"
+        ],
+        "background noise": [
+            "noise"
+        ],
+        "gaussian noise (electronic)": [
+            "noise"
+        ],
+        "noise source": [
+            "noise"
+        ],
+        "white noise": [
+            "noise"
+        ],
+        "data security": [
+            "data privacy"
+        ],
+        "system theory": [
+            "theory"
+        ],
+        "combinatorial mathematics": [
+            "graph theory"
+        ],
+        "complex network theory": [
+            "graph theory"
+        ],
+        "online social networkings": [
+            "social networking"
+        ],
+        "user-generated content": [
+            "social networking"
+        ],
+        "global system for mobile communications": [
+            "users"
+        ],
+        "mobile devices": [
+            "users"
+        ],
+        "world wide web": [
+            "microblogging",
+            "twitter",
+            "social",
+            "social networking",
+            "social networks",
+            "social network",
+            "users",
+            "online social networks"
+        ],
+        "computer science": [
+            "data privacy",
+            "anonymized",
+            "mining",
+            "privacy",
+            "mining researchers",
+            "anonymization",
+            "data mining"
+        ],
+        "data integration": [
+            "data"
+        ],
+        "database systems": [
+            "mining",
+            "anonymization",
+            "data mining"
+        ],
+        "video contents": [
+            "photo sharing"
+        ],
+        "complex networks": [
+            "real-world networks",
+            "graph theory"
+        ],
+        "network security": [
+            "anonymous",
+            "data privacy",
+            "anonymous twitter",
+            "privacy",
+            "anonymity",
+            "sensitive information"
+        ],
+        "web development": [
+            "developers"
+        ],
+        "sociology": [
+            "social"
+        ],
+        "spurious signal noise": [
+            "noise"
+        ],
+        "acoustic noise": [
+            "noise"
+        ],
+        "graphic methods": [
+            "graph",
+            "graphs"
+        ],
+        "computer networks": [
+            "network",
+            "topology",
+            "world networks",
+            "networks",
+            "network topology"
+        ],
+        "formal methods": [
+            "framework"
+        ],
+        "recommender systems": [
+            "information"
+        ],
+        "personal information": [
+            "information"
+        ],
+        "software": [
+            "algorithm"
+        ],
+        "network management": [
+            "service"
+        ],
+        "quality of service": [
+            "service"
+        ],
+        "telecommunication services": [
+            "service"
+        ],
+        "information technology": [
+            "service"
+        ],
+        "computer security": [
+            "privacy",
+            "anonymity",
+            "data privacy"
+        ],
+        "software architecture": [
+            "application developers",
+            "developers"
+        ],
+        "communication channels (information theory)": [
+            "error rate",
+            "noise"
+        ],
+        "signal to noise ratio": [
+            "error rate",
+            "noise"
+        ],
+        "probability": [
+            "error rate"
+        ],
+        "access control": [
+            "privacy",
+            "sensitive information"
+        ],
+        "online systems": [
+            "online",
+            "social",
+            "social networking",
+            "social networks",
+            "social network",
+            "online social networks"
+        ],
+        "ad hoc networks": [
+            "nodes"
+        ],
+        "wireless sensor networks": [
+            "nodes"
+        ],
+        "routing protocols": [
+            "network topology",
+            "nodes"
+        ],
+        "computer programming": [
+            "framework"
+        ],
+        "electronic document identification systems": [
+            "anonymity"
+        ],
+        "theoretical computer science": [
+            "graph theory",
+            "graph",
+            "graphs"
+        ],
+        "information sharing": [
+            "sharing"
+        ],
+        "associative processing": [
+            "mining"
+        ],
+        "authentication": [
+            "anonymous",
+            "anonymous twitter",
+            "privacy",
+            "anonymity"
+        ],
+        "communication": [
+            "networks",
+            "anonymous",
+            "anonymity",
+            "anonymous twitter"
+        ],
+        "communication systems": [
+            "anonymous twitter",
+            "anonymous",
+            "anonymity"
+        ],
+        "ubiquitous computing": [
+            "social"
+        ],
+        "interactive computer systems": [
+            "social"
+        ],
+        "human engineering": [
+            "social"
+        ],
+        "telecommunication networks": [
+            "networks"
+        ],
+        "routing algorithms": [
+            "network topology"
+        ],
+        "graph g": [
+            "graph"
+        ],
+        "approximation algorithms": [
+            "graph"
+        ],
+        "evolutionary algorithms": [
+            "algorithm"
+        ],
+        "particle swarm optimization (pso)": [
+            "algorithm"
+        ],
+        "knowledge acquisition": [
+            "mining",
+            "data mining"
+        ],
+        "web 2.0": [
+            "social networking"
+        ],
+        "user interfaces": [
+            "social networking"
+        ],
+        "program compilers": [
+            "network"
+        ],
+        "artificial intelligence": [
+            "theory"
+        ],
+        "gateways (computer networks)": [
+            "nodes"
+        ],
+        "cryptography": [
+            "privacy",
+            "data privacy"
+        ],
+        "wireless mesh networks (wmn)": [
+            "networks"
+        ],
+        "security systems": [
+            "privacy"
+        ]
+    }
+}

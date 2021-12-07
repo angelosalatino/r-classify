@@ -1,0 +1,5 @@
+ # dir = os.path.dirname(os.path.realpath(__file__))
+    config = configparser.ConfigParser()
+    #include congig.ini file using base address.
+    # print(os.path.join(dir, 'config.ini'))
+    # config.read(os.path.join(dir, 'config.ini'))
