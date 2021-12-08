@@ -209,12 +209,36 @@ $('#pdf_form').on('submit', function(event) {
 		processData: false,
 		contentType: false,
 		success: function(json) {
-			display_topics(json);
+            document.querySelector('#pdf_title').value = json.title 
+            document.querySelector('#pdftext').value = json.abstract
+            document.querySelector('#pdf_keywords').value = json.keywords
+            $('#spinner').hide(0);
+            $('#pdftextform').show(0);
 		},
 		error : function(xhr,errmsg,err) {
 			document.getElementById("access_error").innerHTML = "Too many accesses"
 		}
 	});
+});	
+
+
+$('#pdftextform').on('submit', function(event) {
+	event.preventDefault();
+	$('#spinner').show(0);
+	var data = new FormData($('#pdftextform').get(0));
+        reset_error();
+        $.ajax({
+            url : "input/",
+            type : "POST",
+            data : { abstract_text : $('#pdftext').val() +  $('#pdf_title').val() + $('#pdf_keywords').val() },
+            success : function(json) {
+                display_topics(json);
+            },
+            
+            error : function(xhr,errmsg,err) {
+                document.getElementById("text_error").innerHTML = "Too many accesses"
+            }
+        });
 });	
 
 
