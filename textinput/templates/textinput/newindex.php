@@ -107,7 +107,7 @@ ontologies, data mining, conference proceedings, metadata">
                         <div class="form">      
                             <ul class="tab-group">
                                 <li class="tab active"><a href="#text">From Text</a></li>
-                                <li class="tab"><a href="#pdf">Process PDF</a></li>
+                                <li class="tab"><a href="#pdf">From PDF</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -127,6 +127,12 @@ ontologies, data mining, conference proceedings, metadata">
                                     <form action="pdfinput/" enctype="multipart/form-data" method="post" id="pdf_form">
                                         {% csrf_token %}
                                         {{pdf_django_form}}
+                                        <input type="submit" value="Load PDF" class="submitbutton">
+                                        <p id = "access_error" class="Error"></p>
+                                    </form>
+                                    <form action="pdfinput/" method="post" id="pdftextform" style="display: none;">
+                                        {% csrf_token %}
+                                        {{pdf_text_form}}
                                         <input type="submit" value="Classify" class="submitbutton">
                                         <p id = "access_error" class="Error"></p>
                                     </form>
