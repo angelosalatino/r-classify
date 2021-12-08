@@ -1,12 +1,14 @@
-from tkinter.constants import FALSE
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
+from django.core.files.uploadhandler import TemporaryFileUploadHandler
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
 import json
 import os
 import sys
 import uuid
 import shutil
-from tkinter.constants import FALSE
 import xmltodict
 from pathlib import Path
 from grobid_client.grobid_client import GrobidClient
@@ -22,10 +24,6 @@ import pytz
 import pdb
 
 dir_pdf = os.path.dirname(os.path.realpath(__file__))
-
-id_paper_input = (os.path.join(dir_pdf, 'resources\\input_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
-id_paper_output = (os.path.join(dir_pdf, 'resources\\output_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
-
 
 def home_view(request, abs_text=None):
     times_accessed = request.session.get('access', None)
@@ -51,17 +49,19 @@ def abstract_input(request):
 
 def pdf_input(request):
     config = configparser.ConfigParser()
-    config.read('config.ini')      
+    config.read('config.ini')     
     if request.method == "POST":
+        id_paper_input = (os.path.join(dir_pdf, 'resources\\input_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
+        id_paper_output = (os.path.join(dir_pdf, 'resources\\output_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
         uploaded_files = request.FILES.get("pdf_paper")
-#         pdb.set_trace()
-        file_path = uploaded_files.temporary_file_path()
+        file_path = default_storage.save('media.pdf', ContentFile(uploaded_files.read()))
+        tmp_file = os.path.join(settings.MEDIA_ROOT, file_path)
         print(file_path)
         if not os.path.exists(id_paper_input):
             os.makedirs(id_paper_input)
             os.makedirs(id_paper_output)
             print("Directory " , id_paper_input, id_paper_output, " Created ")
-            shutil.copy(file_path, id_paper_input)
+            shutil.copy(tmp_file, id_paper_input)
         else:    
             print("Directory " , id_paper_input ,  " already exists")  
         client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
@@ -95,6 +95,10 @@ def pdf_input(request):
                         if DEBUG:
                             print("Unable to find keywords")
         pdf_text = title + abstract + keywords
+        # pdb.set_trace() 
+        shutil.rmtree(id_paper_input)
+        shutil.rmtree(id_paper_output)
+        os.remove(tmp_file)
         if len(pdf_text) < 100:
             try:
                 pdf_text = title  + abstract  + keywords
