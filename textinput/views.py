@@ -14,7 +14,7 @@ from pathlib import Path
 from grobid_client.grobid_client import GrobidClient
 from grobid_client.grobid_client import GrobidClient
 from .models import data_record, data_record_dev
-from .forms import abstractForm, pdfForm
+from .forms import abstractForm, pdfForm, pdftextform
 from .cso_classifier.classifier import classifier
 from datetime import datetime, timedelta
 from ipware import get_client_ip
@@ -36,14 +36,14 @@ def home_view(request, abs_text=None):
 
         request.session.set_expiry(int(config['SESSION']['sessionlifetime']))
     return render(request, 'textinput/newindex.php',
-                  {'form': abstractForm, "pdf_django_form": pdfForm})
+                  {'form': abstractForm, "pdf_django_form": pdfForm, "pdf_text_form": pdftextform})
 
 
 def abstract_input(request):
     if request.method == 'POST':
         abstract_text = request.POST['abstract_text']
         return return_topics(request, abstract_text)
-
+        
 
 
 
@@ -95,7 +95,7 @@ def pdf_input(request):
                         if DEBUG:
                             print("Unable to find keywords")
         pdf_text = title + abstract + keywords
-        # pdb.set_trace() 
+        pdf_class = {"title": title, "abstract": abstract, "keywords": keywords }
         shutil.rmtree(id_paper_input)
         shutil.rmtree(id_paper_output)
         os.remove(tmp_file)
@@ -104,7 +104,10 @@ def pdf_input(request):
                 pdf_text = title  + abstract  + keywords
             except IndexError:
                 pass
-        return return_topics(request, pdf_text)
+        return HttpResponse(
+            json.dumps(pdf_class),
+            content_type = "application/json"
+        )
 
 
 def return_topics(request, text):
