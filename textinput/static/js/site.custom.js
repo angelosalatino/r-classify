@@ -209,17 +209,79 @@ $('#pdf_form').on('submit', function(event) {
 		processData: false,
 		contentType: false,
 		success: function(json) {
-            document.querySelector('#pdf_title').value = json.title 
-            document.querySelector('#pdftext').value = json.abstract
-            document.querySelector('#pdf_keywords').value = json.keywords
             $('#spinner').hide(0);
-            $('#pdftextform').show(0);
+            document.querySelector('#pdf_keywords').value = json.keywords
+            document.querySelector('#pdf_title').value = json.title
+            document.querySelector('#pdftext').value = json.abstract
+
+//keywords//
+            if (json.keywords === "") {
+                $('label[for="pdf_keywords"]').hide(0)
+                $('#pdf_keywords').hide(0)
+                $('#keywords_button').show(0)
+            }
+            else {
+                $('label[for="pdf_keywords"]').show(0)
+                $('#pdf_keywords').show(0)
+                $('#keywords_button').hide(0)
+            }
+//title//
+            if (json.title === "") {
+                $('label[for="pdf_title"]').hide(0)
+                $('#pdf_title').hide(0)
+                $('#title_button').show(0)
+            }
+            else {
+                $('label[for="df_title"]').show(0)
+                $('#pdf_title').show(0)
+                $('#title_button').hide(0)
+            }
+//abstract//
+            if (json.abstract === "") {
+                $('label[for="pdftext"]').hide(0)
+                $('#pdftext').hide(0)
+                $('#abstract_button').show(0)
+            }
+            else {
+                $('label[for="pdftext"]').show(0)
+                $('#pdftext').show(0)
+                $('#abstract_button').hide(0)
+            }
+
+            $('#pdftextform').show(0)
+            
+          
 		},
 		error : function(xhr,errmsg,err) {
 			document.getElementById("access_error").innerHTML = "Too many accesses"
 		}
 	});
 });	
+
+
+//add keywords button//
+$('#keywords_button').on('click', function(){
+    event.preventDefault();
+    $('label[for="pdf_keywords"]').show(0)
+    $('#pdf_keywords').show(0)
+    $('#keywords_button').hide(0)
+}) 
+
+//add title button//
+$('#title_button').on('click', function(){
+    event.preventDefault();
+    $('label[for="pdf_title"]').show(0)
+    $('#pdf_title').show(0)
+    $('#title_button').hide(0)
+}) 
+
+//add abstract button//
+$('#abstract_button').on('click', function(){
+    event.preventDefault();
+    $('label[for="pdftext"]').show(0)
+    $('#pdftext').show(0)
+    $('#abstract_button').hide(0)
+}) 
 
 
 $('#pdftextform').on('submit', function(event) {
@@ -234,7 +296,6 @@ $('#pdftextform').on('submit', function(event) {
             success : function(json) {
                 display_topics(json);
             },
-            
             error : function(xhr,errmsg,err) {
                 document.getElementById("text_error").innerHTML = "Too many accesses"
             }
