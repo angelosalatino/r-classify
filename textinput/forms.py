@@ -5,9 +5,7 @@ class abstractForm(forms.Form):
 
 class pdfForm(forms.Form):
     pdf_paper = forms.FileField(widget=forms.FileInput(attrs={'accept':'.pdf'}))
-
-    
 class pdftextform(forms.Form):
-    Abstract = forms.CharField(widget=forms.Textarea(attrs={"label":"Abstract<span class='req'>*</span>", "rows":10, "cols":50, "id":'pdftext'}))
-    Title = forms.CharField(widget=forms.Textarea(attrs={"label":"Abstract<span class='req'>*</span>", "rows":3, "cols":50, "id":'pdf_title'}))
-    Keywords = forms.CharField(widget=forms.Textarea(attrs={"label":"Abstract<span class='req'>*</span>", "rows":3, "cols":50, "id":'pdf_keywords'}))
+    Title = forms.CharField(required= False, widget=forms.Textarea(attrs={"label":"Abstract<span class='req'>*</span>", "rows":3, "cols":50, "id":'pdf_title'}))
+    Abstract = forms.CharField(required= False, widget=forms.Textarea(attrs={"label":"Abstract<span class='req'>*</span>", "rows":10, "cols":50, "id":'pdftext'}))
+    Keywords = forms.CharField(required= False, widget=forms.Textarea(attrs={"label":"Abstract<span class='req'>*</span>", "rows":3, "cols":50, "id":'pdf_keywords'}))
