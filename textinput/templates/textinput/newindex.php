@@ -123,7 +123,7 @@ ontologies, data mining, conference proceedings, metadata">
                                 </div>
                                 <!-- tab 2 -->
                                 <div id="pdf">   
-									<p><b class="bold_warning"><i class="fas fa-exclamation-triangle"></i> This functionality is still in beta.</b> We suggest using “From Text” to obtain more reliable results.</p>
+									<p>Please load your PDF and we will process “title”, “abstract” and “keywords” (if available).</p>
                                     <form action="pdfinput/" enctype="multipart/form-data" method="post" id="pdf_form">
                                         {% csrf_token %}
                                         {{pdf_django_form}}
@@ -131,8 +131,15 @@ ontologies, data mining, conference proceedings, metadata">
                                         <p id = "access_error" class="Error"></p>
                                     </form>
                                     <form action="pdfinput/" method="post" id="pdftextform" style="display: none;">
+                                    <p>Here is showed the text we extracted from the PDF file you loaded. Before proceeding with classifying it, please amend it if needed. </p>
                                         {% csrf_token %}
                                         {{pdf_text_form}}
+                                        <br>
+                                        <button id="title_button" style="display: none;" class="button">Click Here to add Title</button>
+                                        <button id="abstract_button" style="display: none;" class="button">Click Here to add Abstract</button>
+                                        <button id="keywords_button" style="display: none;" class="button">Click Here to add Keywords</button>
+                                    <br>
+                                    <br>
                                         <input type="submit" value="Classify" class="submitbutton">
                                         <p id = "access_error" class="Error"></p>
                                     </form>
