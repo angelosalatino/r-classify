@@ -132,6 +132,7 @@ ontologies, data mining, conference proceedings, metadata">
                                     </form>
                                     <form action="pdfinput/" method="post" id="pdftextform" style="display: none;">
                                     <p>Here is showed the text we extracted from the PDF file you loaded. Before proceeding with classifying it, please amend it if needed. </p>
+                                    <br>
                                         {% csrf_token %}
                                         {{pdf_text_form}}
                                         <br>
