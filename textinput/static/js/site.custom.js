@@ -138,6 +138,7 @@ function basedatachange() {
     topics = topics.replace(/{/g,'');
     topics = topics.replace(/}/g,'');
     $('#view_topics').val(topics);
+
 };
 
 function basedatachange_legacy() {
@@ -292,7 +293,7 @@ $('#pdftextform').on('submit', function(event) {
         $.ajax({
             url : "input/",
             type : "POST",
-            data : { abstract_text : $('#pdftext').val() +  $('#pdf_title').val() + $('#pdf_keywords').val() },
+            data : { abstract_text : $('#pdf_title').val() + "<br/>"  +  $('#pdftext').val() + "<br/>" + $('#pdf_keywords').val() },
             success : function(json) {
                 display_topics(json);
             },
