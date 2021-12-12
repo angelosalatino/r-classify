@@ -293,7 +293,7 @@ $('#pdftextform').on('submit', function(event) {
         $.ajax({
             url : "input/",
             type : "POST",
-            data : { abstract_text : $('#pdf_title').val() + "<br/>"  +  $('#pdftext').val() + "<br/>" + $('#pdf_keywords').val() },
+            data : { abstract_text : "<p><b>Title</b></p>"+ "<br/>" + $('#pdf_title').val() + "<br/>" + "<p><b>Abstract</b></p>" + "<br/>" +  $('#pdftext').val() + "<br/>" + "<p><b>Keywords</b></p>" + "<br/>" + $('#pdf_keywords').val() },
             success : function(json) {
                 display_topics(json);
             },
