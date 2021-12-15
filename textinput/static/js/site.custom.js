@@ -104,7 +104,9 @@ $(document).ready(function(){
             var input2txt = $("#missing").val();
             //add custom item, protection against blank and repeated input
 			if (input2txt != "" && !$('#basedatadrag').val().includes("{"+input2txt+"}")){
-				$('#list2').append('<li class="button newtopic"><span class="topic">'+input2txt+'</span> <a href="#" id="itm" class="deleteItm"><i class="grab fas fa-minus-circle"></i></a></li>');
+				$('#list2').append('<li class="button newtopic"><span class="topic">'+input2txt+'</span> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+input2txt.replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i><a href="#" id="itm" class="deleteItm"><i class="grab fas fa-minus-circle"></i></a></li>');
+                
+                // $('#list2').append(new ToggleButton(input2txt).genButton());
 				//add value of custom item to input field
 				$('#list2 li span').each(function() {
 					formula.push('{' + $(this).html() + '}');
@@ -293,7 +295,7 @@ $('#pdftextform').on('submit', function(event) {
         $.ajax({
             url : "input/",
             type : "POST",
-            data : { abstract_text : "<p><b>Title</b></p>"+ "<br/>" + $('#pdf_title').val() + "<br/>" + "<p><b>Abstract</b></p>" + "<br/>" +  $('#pdftext').val() + "<br/>" + "<p><b>Keywords</b></p>" + "<br/>" + $('#pdf_keywords').val() },
+            data : { abstract_text : "<p><b>Title:</b></p>"+ "&nbsp" + $('#pdf_title').val() + "<br/>" + "<p><b>Abstract:</b></p>" + "&nbsp" +  $('#pdftext').val() + "<br/>" + "<p><b>Keywords:</b></p>" + "&nbsp" + $('#pdf_keywords').val() },
             success : function(json) {
                 display_topics(json);
             },
@@ -385,7 +387,7 @@ for (i = 0; i < acc.length; i++) {
     /* Toggle between adding and removing the "active" class,
     to highlight the button that controls the panel */
     this.classList.toggle("active");
-	$("#annoplus").toggleClass('fa-minus-circle fa-plus-circle');
+	$("#annoplus").toggleClass('fa-times-circle fa-plus-circle');
 
     /* Toggle between hiding and showing the active panel */
     var panel = this.nextElementSibling;
