@@ -174,7 +174,7 @@ ontologies, data mining, conference proceedings, metadata">
                                 <ul id="list1" class="topics droptrue">
                                 </ul>
                                 <div class="clearfix margin-bottom-20"></div>
-                                <button class="add_all">Add all topics</button>
+                                <button class="add_all">Select all topics</button>
                                 <label>Selected Topics</label>
                                 <ul id="list2" class="topics-selected dropfalse">
                                     
@@ -198,7 +198,7 @@ ontologies, data mining, conference proceedings, metadata">
                                 <div class="clearfix margin-bottom-20"></div>
                             </form>
 							<div id="anno_doc">
-								<button class="accordion"><span class="acctext">See your annotated document</span><i class="grab fa fa-plus-circle" id="annoplus"></i></button>
+								<button class="accordion"><span class="acctext">Annotated document</span><i class="grab fa fa-plus-circle" id="annoplus"></i></button>
 								<div class="panel" style="display: none;">
 									<div class="annoexp">This is your document with keywords annotated. Hover over them to see which topics were generated for each word</div>
 									<div id="anno_text"></div>
