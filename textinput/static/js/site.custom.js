@@ -105,7 +105,8 @@ $(document).ready(function(){
             //add custom item, protection against blank and repeated input
 			if (input2txt != "" && !$('#basedatadrag').val().includes("{"+input2txt+"}")){
 				$('#list2').append('<li class="button newtopic"><span class="topic">'+input2txt+'</span> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+input2txt.replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i><a href="#" id="itm" class="deleteItm"><i class="grab fas fa-minus-circle"></i></a></li>');
-     
+                
+                // $('#list2').append(new ToggleButton(input2txt).genButton());
 				//add value of custom item to input field
 				$('#list2 li span').each(function() {
 					formula.push('{' + $(this).html() + '}');
@@ -261,7 +262,7 @@ $('#pdf_form').on('submit', function(event) {
                 text: "Apologies, we encountered a problem, and we are fixing it.",
                 icon: 'warning',
                 confirmButtonColor: '#F2E74B',
-                confirmButtonText: 'OK'
+                confirmButtonText: '<span style="color:#000000; font-weight:bold;">OK<span>'
               })
         	document.getElementById("access_error").innerHTML = "Too many accesses"
         }
