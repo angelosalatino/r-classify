@@ -239,7 +239,6 @@ ontologies, data mining, conference proceedings, metadata">
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="//smtpjs.com/v3/smtp.js"></script>
         <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	    <script src="//stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
