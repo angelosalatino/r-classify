@@ -259,11 +259,17 @@ $('#pdf_form').on('submit', function(event) {
             $('#spinner').hide(0);
             document.getElementById("access_error").innerHTML =  Swal.fire({
                 title: 'Warning!',
-                text: "Apologies, we encountered a problem, and we are fixing it.",
+                text: "Oops, it looks like we are unable to process your PDF at the moment. Why don't you use the annotation from text?",
                 icon: 'warning',
+                showCancelButton: true,
                 confirmButtonColor: '#F2E74B',
-                confirmButtonText: '<span style="color:#000000; font-weight:bold;">OK<span>'
-              })
+                confirmButtonText: '<span style="color:#000000; font-weight:bold;">Redirect me<span>',
+                cancelButtonText: '<span style="color:#000000; font-weight:bold;">Close<span>'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  location.reload();
+                }
+              });
         	document.getElementById("access_error").innerHTML = "Too many accesses"
         }
 	});
