@@ -136,16 +136,18 @@ TIME_ZONE = 'Asia/Kolkata'
 
 # Error reporting 
 
-
-
 ADMINS = [('Tanay', 'tanay.aggarwal@open.ac.uk'), ('Angelo', 'angelo.salatino@open.ac.uk')]
-
 MANAGERS = ADMINS
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
 EMAIL_PORT = 25
 EMAIL_HOST = 'smtpmail.open.ac.uk'
+DEFAULT_FROM_EMAIL = 'noreply@open.ac.uk'
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
