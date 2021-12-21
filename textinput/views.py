@@ -25,6 +25,8 @@ import pdb
 
 dir_pdf = os.path.dirname(os.path.realpath(__file__))
 
+DEBUG = True 
+
 def home_view(request, abs_text=None):
     times_accessed = request.session.get('access', None)
     config = configparser.ConfigParser()
@@ -56,7 +58,7 @@ def pdf_input(request):
         
         temporary_folder = "{}_{}_{}".format(uuid.uuid4().hex, str(datetime.now().date()), str(datetime.now().time()).replace(':', '.'))
         id_paper_input = os.path.join(dir_pdf, 'resources', 'input_pdf', temporary_folder)
-        id_paper_output = (os.path.join(dir_pdf, 'resources', 'output_pdf', temporary_folder))
+        id_paper_output = os.path.join(dir_pdf, 'resources', 'output_pdf', temporary_folder)
         
         uploaded_files = request.FILES.get("pdf_paper")
         file_path = default_storage.save('media.pdf', ContentFile(uploaded_files.read()))
@@ -64,18 +66,16 @@ def pdf_input(request):
         if not os.path.exists(id_paper_input):
             os.makedirs(id_paper_input)
             os.makedirs(id_paper_output)
-            print("Directory " , id_paper_input, id_paper_output, " Created ")
+            if DEBUG: print("Directory " , id_paper_input, id_paper_output, " Created ")
             shutil.copy(tmp_file, id_paper_input)
         else:    
-            print("Directory " , id_paper_input ,  " already exists")  
-        client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
-        client.process("processHeaderDocument", id_paper_input, id_paper_output, consolidate_citations=True, force=True)
+            if DEBUG: print("Directory " , id_paper_input ,  " already exists") 
+            
 
-# Condition to choose between Curl API and GROBID web interface       
+####### Curl API
 
-# Curl API
-
-        if os.stat(id_paper_output).st_size == 0:
+        if config['GROBID_SETTINGS']['use_curl']:
+            print("I managed to get this: ",config['GROBID_SETTINGS']['use_curl'])
             for file in Path(id_paper_input).iterdir():
                 if file.suffix == '.pdf':
                     with open(file, 'rb') as file:
@@ -92,33 +92,43 @@ def pdf_input(request):
                     
                     response = requests.post(the_url, files=files)
                     
-                    paper_dict = xmltodict.parse(response.text)
-
-# GROBID web interface Client
-
-        else:
+                    paper_dict = xmltodict.parse(response.text)          
+            
+            
+        else: 
+            print("OPSSSS: ",config['GROBID_SETTINGS']['use_curl'])
+####### THROUGH PYTHON GROBID CLIENT
+            client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
+            client.process("processHeaderDocument", id_paper_input, id_paper_output, consolidate_citations=True, force=True)
+            
             for file in Path(id_paper_output).iterdir():
                 if file.suffix == '.xml':
                     with open(file, 'r', encoding='utf-8') as file:
                         xml = file.read()
-                        DEBUG = True
                         paper_dict = xmltodict.parse(xml)
+
+     
+
+
+# GROBID web interface Client
+# Condition to choose between Curl API and GROBID web interface  
+# if os.stat(id_paper_output).st_size == 0:
+# else:
+
 
 # Process title, abstract and keywords
 
-        DEBUG = True              
+             
         try:
             title = paper_dict['TEI']['teiHeader']['fileDesc']['titleStmt']['title']['#text']
         except:
             title = ""
-            if DEBUG:
-                print("Unable to find title")
+            if DEBUG: print("Unable to find title")
         try:
             abstract = paper_dict['TEI']['teiHeader']['profileDesc']['abstract']['p']
         except:
             abstract = ""
-            if DEBUG:
-                print("Unable to find abstract")
+            if DEBUG: print("Unable to find abstract")
         
         try:
             if "term" in paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']:
@@ -127,8 +137,7 @@ def pdf_input(request):
                 keywords = paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']
         except:
             keywords = ""
-            if DEBUG:
-                print("Unable to find keywords")
+            if DEBUG: print("Unable to find keywords")
 
 # Dump processed xml to python dictionary
 
