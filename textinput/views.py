@@ -164,75 +164,80 @@ def pdf_input(request):
             
 
 ####### Curl API
-
-        if True:#config['GROBID_SETTINGS']['use_curl']:
-            if DEBUG: print("I am accessing Grobid through the CURL")
-            for file in Path(id_paper_input).iterdir():
-                if file.suffix == '.pdf':
-                    with open(file, 'rb') as file:
-                        files = {
-                            'input': file.read()
-                        }
-                    
-                    # response = requests.post('https://cso.kmi.open.ac.uk/grobid-test/api/processHeaderDocument', files=files)
-                    
-                    the_url = "http://" + config['GROBID_SETTINGS']['grobid_server']
-                    if len(config['GROBID_SETTINGS']['grobid_port']) > 0:
-                        the_url += ":" + config['GROBID_SETTINGS']['grobid_port']
-                    the_url += "/api/processHeaderDocument"
-                    
-                    response = requests.post(the_url, files=files)
-                    
-                    paper_dict = xmltodict.parse(response.text)          
-            
-            
-        else: 
-            if DEBUG: print("I am running the Grobid Python Client")
-####### THROUGH PYTHON GROBID CLIENT
-            client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
-            client.process("processHeaderDocument", id_paper_input, id_paper_output, consolidate_citations=True, force=True)
-            
-            for file in Path(id_paper_output).iterdir():
-                if file.suffix == '.xml':
-                    with open(file, 'r', encoding='utf-8') as file:
-                        xml = file.read()
-                        paper_dict = xmltodict.parse(xml)
-
-     
-
-
-# GROBID web interface Client
-# Condition to choose between Curl API and GROBID web interface  
-# if os.stat(id_paper_output).st_size == 0:
-# else:
-
-
-# Process title, abstract and keywords
-
-             
         try:
-            title = paper_dict['TEI']['teiHeader']['fileDesc']['titleStmt']['title']['#text']
+            if True:#config['GROBID_SETTINGS']['use_curl']:
+                if DEBUG: print("I am accessing Grobid through the CURL")
+                for file in Path(id_paper_input).iterdir():
+                    if file.suffix == '.pdf':
+                        with open(file, 'rb') as file:
+                            files = {
+                                'input': file.read()
+                            }
+                        
+                        # response = requests.post('https://cso.kmi.open.ac.uk/grobid-test/api/processHeaderDocument', files=files)
+                        #### TEST CONNECTION!!
+                        the_url = "http://" + config['GROBID_SETTINGS']['grobid_server']
+                        if len(config['GROBID_SETTINGS']['grobid_port']) > 0:
+                            the_url += ":" + config['GROBID_SETTINGS']['grobid_port']
+                        the_url += "/api/processHeaderDocument"
+                        
+                        response = requests.post(the_url, files=files)
+                        #### ADD try 
+    
+                        paper_dict = xmltodict.parse(response.text)
+    
+                
+                
+            else: 
+                if DEBUG: print("I am running the Grobid Python Client")
+    ####### THROUGH PYTHON GROBID CLIENT
+                client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
+                client.process("processHeaderDocument", id_paper_input, id_paper_output, consolidate_citations=True, force=True)
+                
+                for file in Path(id_paper_output).iterdir():
+                    if file.suffix == '.xml':
+                        with open(file, 'r', encoding='utf-8') as file:
+                            xml = file.read()
+                            paper_dict = xmltodict.parse(xml)
+    
+         
+    
+    
+    # GROBID web interface Client
+    # Condition to choose between Curl API and GROBID web interface  
+    # if os.stat(id_paper_output).st_size == 0:
+    # else:
+    
+    
+    # Process title, abstract and keywords
+    
+                 
+            try:
+                title = paper_dict['TEI']['teiHeader']['fileDesc']['titleStmt']['title']['#text']
+            except:
+                title = ""
+                if DEBUG: print("Unable to find title")
+            try:
+                abstract = paper_dict['TEI']['teiHeader']['profileDesc']['abstract']['p']
+            except:
+                abstract = ""
+                if DEBUG: print("Unable to find abstract")
+            
+            try:
+                if "term" in paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']:
+                    keywords = ", ".join(paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']['term'])
+                else:
+                    keywords = paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']
+            except:
+                keywords = ""
+                if DEBUG: print("Unable to find keywords")
+    
+    # Dump processed xml to python dictionary
+    
+            pdf_class = {"title": title, "abstract": abstract, "keywords": keywords }
         except:
-            title = ""
-            if DEBUG: print("Unable to find title")
-        try:
-            abstract = paper_dict['TEI']['teiHeader']['profileDesc']['abstract']['p']
-        except:
-            abstract = ""
-            if DEBUG: print("Unable to find abstract")
+            pdf_class = {"title": "", "abstract": "", "keywords": ""}
         
-        try:
-            if "term" in paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']:
-                keywords = ", ".join(paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']['term'])
-            else:
-                keywords = paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']
-        except:
-            keywords = ""
-            if DEBUG: print("Unable to find keywords")
-
-# Dump processed xml to python dictionary
-
-        pdf_class = {"title": title, "abstract": abstract, "keywords": keywords }
         shutil.rmtree(id_paper_input)
         shutil.rmtree(id_paper_output)
         os.remove(tmp_file)
