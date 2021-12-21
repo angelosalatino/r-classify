@@ -48,7 +48,7 @@ def abstract_input(request):
 
 
 
-def pdf_input(request):
+def pdf_input_old(request):
     config = configparser.ConfigParser()
     config.read('config.ini')     
     if request.method == "POST":
@@ -140,7 +140,7 @@ def pdf_input(request):
     
     
 
-def pdf_input2(request):
+def pdf_input(request):
     config = configparser.ConfigParser()
     config.read('config.ini')     
     if request.method == "POST":
@@ -166,7 +166,7 @@ def pdf_input2(request):
 ####### Curl API
 
         if True:#config['GROBID_SETTINGS']['use_curl']:
-            print("I managed to get this: ",config['GROBID_SETTINGS']['use_curl'])
+            if DEBUG: print("I am accessing Grobid through the CURL")
             for file in Path(id_paper_input).iterdir():
                 if file.suffix == '.pdf':
                     with open(file, 'rb') as file:
@@ -187,7 +187,7 @@ def pdf_input2(request):
             
             
         else: 
-            print("OPSSSS: ",config['GROBID_SETTINGS']['use_curl'])
+            if DEBUG: print("I am running the Grobid Python Client")
 ####### THROUGH PYTHON GROBID CLIENT
             client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
             client.process("processHeaderDocument", id_paper_input, id_paper_output, consolidate_citations=True, force=True)
