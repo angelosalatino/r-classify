@@ -132,7 +132,7 @@ USE_TZ = True
 
 # Change the TIME_ZONE wrt Region.
 
-TIME_ZONE = 'Asia/Kolkata' 
+TIME_ZONE = config['SESSION']['timezone'] 
 
 # Error reporting 
 
@@ -152,7 +152,7 @@ EMAIL_HOST_PASSWORD = ''
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = config['RESOURCE']['static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
