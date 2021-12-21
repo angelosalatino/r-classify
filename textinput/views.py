@@ -24,7 +24,6 @@ import pytz
 import pdb
 
 dir_pdf = os.path.dirname(os.path.realpath(__file__))
-
 DEBUG = True 
 
 def home_view(request, abs_text=None):
@@ -50,6 +49,98 @@ def abstract_input(request):
 
 
 def pdf_input(request):
+    config = configparser.ConfigParser()
+    config.read('config.ini')     
+    if request.method == "POST":
+        # id_paper_input = (os.path.join(dir_pdf, 'resources\\input_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
+        # id_paper_output = (os.path.join(dir_pdf, 'resources\\output_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
+        
+        temporary_folder = "{}_{}_{}".format(uuid.uuid4().hex, str(datetime.now().date()), str(datetime.now().time()).replace(':', '.'))
+        id_paper_input = os.path.join(dir_pdf, 'resources', 'input_pdf', temporary_folder)
+        id_paper_output = os.path.join(dir_pdf, 'resources', 'output_pdf', temporary_folder)
+        
+        uploaded_files = request.FILES.get("pdf_paper")
+        file_path = default_storage.save('media.pdf', ContentFile(uploaded_files.read()))
+        tmp_file = os.path.join(settings.MEDIA_ROOT, file_path)
+        if not os.path.exists(id_paper_input):
+            os.makedirs(id_paper_input)
+            os.makedirs(id_paper_output)
+            if DEBUG: print("Directory " , id_paper_input, id_paper_output, " Created ")
+            shutil.copy(tmp_file, id_paper_input)
+        else:    
+            if DEBUG: print("Directory " , id_paper_input ,  " already exists")  
+        client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
+        client.process("processHeaderDocument", id_paper_input, id_paper_output, consolidate_citations=True, force=True)
+
+# Condition to choose between Curl API and GROBID web interface       
+
+# Curl API
+
+        if os.stat(id_paper_output).st_size == 0:
+            for file in Path(id_paper_input).iterdir():
+                if file.suffix == '.pdf':
+                    with open(file, 'rb') as file:
+                        files = {
+                            'input': file.read()
+                        }
+                    
+                    # response = requests.post('https://cso.kmi.open.ac.uk/grobid-test/api/processHeaderDocument', files=files)
+                    
+                    the_url = "http://" + config['GROBID_SETTINGS']['grobid_server']
+                    if len(config['GROBID_SETTINGS']['grobid_port']) > 0:
+                        the_url += ":" + config['GROBID_SETTINGS']['grobid_port']
+                    the_url += "/api/processHeaderDocument"
+                    
+                    response = requests.post(the_url, files=files)
+                    
+                    paper_dict = xmltodict.parse(response.text)
+
+# GROBID web interface Client
+
+        else:
+            for file in Path(id_paper_output).iterdir():
+                if file.suffix == '.xml':
+                    with open(file, 'r', encoding='utf-8') as file:
+                        xml = file.read()
+                        paper_dict = xmltodict.parse(xml)
+
+# Process title, abstract and keywords
+
+             
+        try:
+            title = paper_dict['TEI']['teiHeader']['fileDesc']['titleStmt']['title']['#text']
+        except:
+            title = ""
+            if DEBUG: print("Unable to find title")
+        try:
+            abstract = paper_dict['TEI']['teiHeader']['profileDesc']['abstract']['p']
+        except:
+            abstract = ""
+            if DEBUG: print("Unable to find abstract")
+        
+        try:
+            if "term" in paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']:
+                keywords = ", ".join(paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']['term'])
+            else:
+                keywords = paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']
+        except:
+            keywords = ""
+            if DEBUG: print("Unable to find keywords")
+
+# Dump processed xml to python dictionary
+
+        pdf_class = {"title": title, "abstract": abstract, "keywords": keywords }
+        shutil.rmtree(id_paper_input)
+        shutil.rmtree(id_paper_output)
+        os.remove(tmp_file)
+        return HttpResponse(
+            json.dumps(pdf_class),
+            content_type = "application/json"
+        )
+    
+    
+
+def pdf_input2(request):
     config = configparser.ConfigParser()
     config.read('config.ini')     
     if request.method == "POST":
@@ -149,6 +240,7 @@ def pdf_input(request):
             json.dumps(pdf_class),
             content_type = "application/json"
         )
+
 
 
 def return_topics(request, text):
