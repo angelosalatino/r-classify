@@ -54,7 +54,7 @@ def pdf_input_old(request):
     if request.method == "POST":
         # id_paper_input = (os.path.join(dir_pdf, 'resources\\input_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
         # id_paper_output = (os.path.join(dir_pdf, 'resources\\output_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
-        #--------!-------
+
         temporary_folder = "{}_{}_{}".format(uuid.uuid4().hex, str(datetime.now().date()), str(datetime.now().time()).replace(':', '.'))
         id_paper_input = os.path.join(dir_pdf, 'resources', 'input_pdf', temporary_folder)
         id_paper_output = os.path.join(dir_pdf, 'resources', 'output_pdf', temporary_folder)
