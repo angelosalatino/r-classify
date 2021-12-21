@@ -74,7 +74,7 @@ def pdf_input(request):
 
 ####### Curl API
 
-        if config['GROBID_SETTINGS']['use_curl']:
+        if True:#config['GROBID_SETTINGS']['use_curl']:
             print("I managed to get this: ",config['GROBID_SETTINGS']['use_curl'])
             for file in Path(id_paper_input).iterdir():
                 if file.suffix == '.pdf':
