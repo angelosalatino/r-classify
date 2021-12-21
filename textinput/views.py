@@ -51,8 +51,13 @@ def pdf_input(request):
     config = configparser.ConfigParser()
     config.read('config.ini')     
     if request.method == "POST":
-        id_paper_input = (os.path.join(dir_pdf, 'resources\\input_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
-        id_paper_output = (os.path.join(dir_pdf, 'resources\\output_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
+        # id_paper_input = (os.path.join(dir_pdf, 'resources\\input_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
+        # id_paper_output = (os.path.join(dir_pdf, 'resources\\output_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
+        
+        temporary_folder = "{}_{}_{}".format(uuid.uuid4().hex, str(datetime.now().date()), str(datetime.now().time()).replace(':', '.'))
+        id_paper_input = os.path.join(dir_pdf, 'resources', 'input_pdf', temporary_folder)
+        id_paper_output = (os.path.join(dir_pdf, 'resources', 'output_pdf', temporary_folder))
+        
         uploaded_files = request.FILES.get("pdf_paper")
         file_path = default_storage.save('media.pdf', ContentFile(uploaded_files.read()))
         tmp_file = os.path.join(settings.MEDIA_ROOT, file_path)
@@ -77,7 +82,16 @@ def pdf_input(request):
                         files = {
                             'input': file.read()
                         }
-                    response = requests.post('https://cso.kmi.open.ac.uk/grobid-test/api/processHeaderDocument', files=files)   
+                    
+                    # response = requests.post('https://cso.kmi.open.ac.uk/grobid-test/api/processHeaderDocument', files=files)
+                    
+                    the_url = "http://" + config['GROBID_SETTINGS']['grobid_server']
+                    if len(config['GROBID_SETTINGS']['grobid_port']) > 0:
+                        the_url += ":" + config['GROBID_SETTINGS']['grobid_port']
+                    the_url += "/api/processHeaderDocument"
+                    
+                    response = requests.post(the_url, files=files)
+                    
                     paper_dict = xmltodict.parse(response.text)
 
 # GROBID web interface Client
