@@ -131,7 +131,10 @@ ontologies, data mining, conference proceedings, metadata">
                                         <p id = "access_error" class="Error"></p>
                                     </form>
                                     <form action="pdfinput/" method="post" id="pdftextform" style="display: none;">
-                                    <p>Here is showed the text we extracted from the PDF file you loaded. Before proceeding with classifying it, please amend it if needed. </p>
+                                    <p id="pdf_not_processed" style="display: none;">Apologies, we were unable to process your PDF.</p>
+                                    
+                                    <p id="pdf_processed" style="display: none;">Here is showed the text we extracted from the PDF file you loaded. Before proceeding with classifying it, please amend it if needed. </p>
+                                    
                                     <br>
                                         {% csrf_token %}
                                         {{pdf_text_form}}

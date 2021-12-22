@@ -250,10 +250,19 @@ $('#pdf_form').on('submit', function(event) {
                 $('#pdftext').show(0)
                 $('#abstract_button').hide(0)
             }
+//Incase the PDF is not processed//
+            if (json.title === "" && json.abstract === "" && json.keywords === "") {
+                $("#pdf_not_processed").show(0)
+                $("#pdf_processed").hide(0)
+            }
+            else {
+                $("#pdf_processed").show(0)
+                $("#pdf_not_processed").hide(0)
+            }
 
             $('#pdftextform').show(0)
             
-          
+//Error message dialog box, whenever DOM error is caught//   
 		},
 		error : function (xhr,errmsg,err) {
             $('#spinner').hide(0);
