@@ -427,6 +427,8 @@ function reset_error() {
     document.getElementById("access_error").innerHTML = "";
 };
 
+var inferred_topics;
+
 function display_topics(json) {
 	$('#input_text').val('');
 	$('#basedatadrag').val('');
@@ -434,6 +436,7 @@ function display_topics(json) {
 	$('#list1').empty();
 	$('#list2').empty();
 	annotate_doc(json);
+    inferred_topics = json.inferred_topic_list;
 	var all_topics = [];
 	for (var i = 0; i<json.topic_list.length; i++) {
 		$("#gen_list").append('<li>'+json.topic_list[i]+"</li>");
@@ -444,8 +447,18 @@ function display_topics(json) {
 	$('#spinner').hide(0);
 	document.getElementById('results').hidden = false;
 	document.getElementById('results').scrollIntoView({behavior: "smooth"});
+    console.log(json)
 };
 
+
+$('.add_inferred_topics').on('click', function(){
+	for (var i = 0; i<inferred_topics.length; i++) {
+		$("#gen_list").append('<li>'+inferred_topics[i]+"</li>");
+        $('#list1').append('<li class="ui-state-default button"> <span>'+inferred_topics[i]+'</span> <i class="fas fa-network-wired"></i> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+inferred_topics[i].replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i></a><button value = "' + inferred_topics[i] + '" type = "button" class="topics" id = "topic_button" style="background: #ffffff;border-radius: 0px;min-height: 0px;margin: 0px 0px 0px 0px;padding: 1px;"><i class="grab fas fa-plus-circle"></i></button></li>');
+	};
+    $('.add_inferred_topics').attr("disabled", true);
+})
+              
 function annotate_doc(json) {
 	var anno_dict = {};
 	var explanation = json.explanation

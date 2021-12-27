@@ -175,6 +175,7 @@ ontologies, data mining, conference proceedings, metadata">
                             <form action="/topics/" method="post" id="topics_form">
                                 {% csrf_token %}
 								<div class="topic_buttons">
+                                <button class="add_inferred_topics">Add inferred topics</button>
                                 <label class="suggested" id="scrollLabel">Suggested Topics</label>
                                 <ul id="list1" class="topics droptrue">
                                 </ul>

@@ -30,6 +30,9 @@ def home_view(request, abs_text=None):
     times_accessed = request.session.get('access', None)
     config = configparser.ConfigParser()
     config.read('config.ini')
+
+####### Number of maximum accesses per-session 
+
     request.session['max_access'] = int(config['SESSION']['usespersession'])
     if times_accessed is None:
         print(config.sections())
@@ -261,7 +264,7 @@ def return_topics(request, text):
         content_type="application/json"
     )
 
-
+###### Text and PDF are processed for classification
 def run_classifier(text):
     config = configparser.ConfigParser()
     config.read('config.ini')
@@ -277,7 +280,9 @@ def run_classifier(text):
         return requests.post(url, data=json.dumps(data), headers=headers), "remote"
 
 
-def generate_record(request, content, topic_list, provenance):
+######### To return with keywords after processing text and PDF [OLD DEFINITION]
+
+def generate_record_old(request, content, topic_list, provenance):
     if provenance == "remote":
         if type(topic_list) == requests.models.Response:
             if type(topic_list.text) == str:
@@ -307,6 +312,44 @@ def generate_record(request, content, topic_list, provenance):
     return response_data
 
 
+######### To return with keywords after processing text and PDF [CURRENTLY IN USE DEFINITION]
+
+def generate_record(request, content, topic_list, provenance):
+    if provenance == "remote":
+        if type(topic_list) == requests.models.Response:
+            if type(topic_list.text) == str:
+                topic_list = json.loads(topic_list.text)
+        else:
+            print("Mismatch provenance and response")  # we need to generate and exception here to handle it properly
+    record_id = request.session.session_key + "_" + str(request.session['access'])
+    request.session['id'] = record_id
+    ip_address, is_routable = get_client_ip(request)
+    if ip_address is None:
+        print("IP address not found")
+        ip_address = "127.0.0.1"
+    ######## TO BE FIXED: depends on provenance
+    t_topic_list = topic_list['list']['extracted'] if provenance == "remote" else topic_list['union']
+    data = {'id':record_id, 'user_ip':ip_address, 'content': content, 'topics' : t_topic_list, 'topics_chosen': [], 'topics_added': [], 'timestamp': datetime.now(pytz.timezone('Europe/London'))}
+    save_to_db(data)
+    response_data = {'abstract_text':content}
+    if provenance == "remote":
+        response_data['topic_list'] = topic_list['list']['extracted']
+        response_data['explanation'] = topic_list['verbose']
+        response_data['inferred_topic_list'] = topic_list['list']['inferred']
+    ######## TO BE REMOVED 
+    # depends on provenance
+    elif provenance == "local":
+        response_data['topic_list'] = topic_list['union']
+        response_data['explanation'] = topic_list['explanation']
+        response_data['inferred_topic_list'] = topic_list['enhanced']
+    ######## END REMOVING
+    return response_data
+
+
+
+
+
+####### User data as well as topics are saved into database
 def save_topics(request):
     if request.method == 'POST':
         topics_chosen = convert_json(request.POST['topics_chosen'])
