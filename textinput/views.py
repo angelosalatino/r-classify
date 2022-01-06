@@ -256,8 +256,8 @@ def return_topics(request, text):
     if request.session['access'] > request.session['max_access']:
         return None
     topic_list, provenance = run_classifier(text)
-    if topic_list is None:
-        return HttpResponseNotFound("<p>Too many accesses.</p>")
+    # if topic_list is None:
+    #     return HttpResponseNotFound("<p>Too many accesses.</p>")
     response_data = generate_record(request, text, topic_list, provenance)
     return HttpResponse(
         json.dumps(response_data),

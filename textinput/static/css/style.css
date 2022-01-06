@@ -463,7 +463,7 @@ input#missing:focus{background:#000;border-top:2px solid #f2e74b;}
 .button.selected{background:#f5f2c4;}
 .fa-plus-circle{color:#0091c2 !important;}
 .fa-minus-circle{color:#a82346 !important;}
-.fa-times-circle{color:#82C91E !important;}
+.fa-times-circle{color:#a82346 !important;}
 
 label.topicstore{background:#c0c0c0;padding:8px 12px;margin:30px 10px 0 10px;color:#fff;border-top-left-radius:15px;border-top-right-radius:15px;}
 #basedatadrag{background:#181818;color:#fff;border-radius:15px !important;border-top-left-radius:0 !important;margin-bottom:40px;}

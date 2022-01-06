@@ -105,8 +105,6 @@ $(document).ready(function(){
             //add custom item, protection against blank and repeated input
 			if (input2txt != "" && !$('#basedatadrag').val().includes("{"+input2txt+"}")){
 				$('#list2').append('<li class="button newtopic"><span class="topic">'+input2txt+'</span> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+input2txt.replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i><a href="#" id="itm" class="deleteItm"><i class="grab fas fa-minus-circle"></i></a></li>');
-                
-                // $('#list2').append(new ToggleButton(input2txt).genButton());
 				//add value of custom item to input field
 				$('#list2 li span').each(function() {
 					formula.push('{' + $(this).html() + '}');
@@ -165,19 +163,64 @@ $(document).on("click",".topics",function(e){
 	$(this).find('i.grab').toggleClass('fa-minus-circle fa-plus-circle');
     e.preventDefault();
     update_base_data();
+    if (list1.childElementCount > 0) {
+        document.querySelector(".add_all").innerText = 'Select all topics';
+    }
+    else{
+        document.querySelector(".add_all").innerText = 'Remove all topics';
+    }
 });
 
 $(document).on("click",".add_all",function(e){
 	e.preventDefault();
 	var list1 = document.getElementById("list1");
     var list2 = document.getElementById("list2");
+    if (list1.childElementCount > 0) {
 	$('#list1 li').each(function() {
 		list2.appendChild(this);
 		$(this).find('i.grab').toggleClass('fa-minus-circle fa-plus-circle');
-	});
-	list1.innerHTML = '';
+	})
+    document.querySelector(".add_all").innerText = 'Remove all topics';
+    list1.innerHTML = '';
+    }
+    else {
+        $('#list2 li').each(function() {
+            list1.appendChild(this);
+            $(this).find('i.grab').toggleClass('fa-minus-circle fa-plus-circle');
+        })
+        document.querySelector(".add_all").innerText = 'Select all topics';
+        list2.innerHTML = '';
+    }
+	
 	update_base_data();
 });
+
+//sort topics from suggested to selected//
+function sortable(){
+    var list1 = document.getElementById("list1");
+    var list2 = document.getElementById("list2");
+ 
+    new Sortable(list1, {
+        group:'shared',
+        animation: 150,
+        onChange: function(evt) {
+        evt.item.querySelector("i.grab").classList.add('fa-plus-circle');
+        evt.item.querySelector("i.grab").classList.remove('fa-minus-circle');
+        update_base_data();
+        }
+    });
+    
+    new Sortable(list2, {
+        group:'shared',
+        animation: 150,
+        onChange: function(evt) {
+        evt.item.querySelector("i.grab").classList.add('fa-minus-circle');
+        evt.item.querySelector("i.grab").classList.remove('fa-plus-circle');
+        update_base_data();
+        }
+    });
+};
+sortable();
 
 function update_base_data() {
 	var formula = []
@@ -451,12 +494,22 @@ function display_topics(json) {
 };
 
 
-$('.add_inferred_topics').on('click', function(){
+$('.add_inferred_topics').on('click', function(e){
+    e.preventDefault();
+    var inferred_topics_node = document.querySelectorAll("#list1 .inferred_topics, #list2 .inferred_topics")
+    if (inferred_topics_node.length == 0 ) {
 	for (var i = 0; i<inferred_topics.length; i++) {
 		$("#gen_list").append('<li>'+inferred_topics[i]+"</li>");
-        $('#list1').append('<li class="ui-state-default button"> <span>'+inferred_topics[i]+'</span> <i class="fas fa-network-wired"></i> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+inferred_topics[i].replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i></a><button value = "' + inferred_topics[i] + '" type = "button" class="topics" id = "topic_button" style="background: #ffffff;border-radius: 0px;min-height: 0px;margin: 0px 0px 0px 0px;padding: 1px;"><i class="grab fas fa-plus-circle"></i></button></li>');
-	};
-    $('.add_inferred_topics').attr("disabled", true);
+        $('#list1').append('<li class="ui-state-default button inferred_topics"> <span>'+inferred_topics[i]+'</span> <i class="fas fa-network-wired"></i> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+inferred_topics[i].replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i></a><button value = "' + inferred_topics[i] + '" type = "button" class="topics" id = "topic_button" style="background: #ffffff;border-radius: 0px;min-height: 0px;margin: 0px 0px 0px 0px;padding: 1px;"><i class="grab fas fa-plus-circle"></i></button></li>');
+    }
+    document.querySelector('.add_inferred_topics').innerText = 'Remove inferred topics';
+    }
+    else {
+        inferred_topics_node.forEach(function(el){
+            el.remove();
+        });
+        document.querySelector('.add_inferred_topics').innerText = 'Add inferred topics';
+    }
 })
               
 function annotate_doc(json) {
