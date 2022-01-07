@@ -496,7 +496,7 @@ function display_topics(json) {
 
 $('.add_inferred_topics').on('click', function(e){
     e.preventDefault();
-    var inferred_topics_node = document.querySelectorAll("#list1 .inferred_topics, #list2 .inferred_topics")
+    var inferred_topics_node = document.querySelectorAll("#list1 .inferred_topics")
     if (inferred_topics_node.length == 0 ) {
 	for (var i = 0; i<inferred_topics.length; i++) {
 		$("#gen_list").append('<li>'+inferred_topics[i]+"</li>");
