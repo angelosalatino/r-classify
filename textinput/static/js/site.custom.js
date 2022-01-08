@@ -496,16 +496,27 @@ function display_topics(json) {
 
 $('.add_inferred_topics').on('click', function(e){
     e.preventDefault();
-    var inferred_topics_node = document.querySelectorAll("#list1 .inferred_topics")
-    if (inferred_topics_node.length == 0 ) {
+    var inferred_topics_list1 = document.querySelectorAll("#list1 .inferred_topics")
+    var inferred_topics_list2 = document.querySelectorAll("#list2 .inferred_topics")
+    if (inferred_topics_list1.length == 0 ) {
 	for (var i = 0; i<inferred_topics.length; i++) {
-		$("#gen_list").append('<li>'+inferred_topics[i]+"</li>");
-        $('#list1').append('<li class="ui-state-default button inferred_topics"> <span>'+inferred_topics[i]+'</span> <i class="fas fa-network-wired"></i> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+inferred_topics[i].replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i></a><button value = "' + inferred_topics[i] + '" type = "button" class="topics" id = "topic_button" style="background: #ffffff;border-radius: 0px;min-height: 0px;margin: 0px 0px 0px 0px;padding: 1px;"><i class="grab fas fa-plus-circle"></i></button></li>');
+        var flag = false;
+        for (var j=0; j<inferred_topics_list2.length; j++) {
+            // console.log(inferred_topics_list2[j].innerText.toLowerCase(), inferred_topics[i])
+            if (inferred_topics_list2[j].innerText.toLowerCase() == inferred_topics[i] + "  ") {
+                flag = true;
+                break;
+            }    
+        }
+        if (flag == false) {
+		    $("#gen_list").append('<li>'+inferred_topics[i]+"</li>");
+            $('#list1').append('<li class="ui-state-default button inferred_topics"> <span>'+inferred_topics[i]+'</span> <i class="fas fa-network-wired"></i> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+inferred_topics[i].replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i></a><button value = "' + inferred_topics[i] + '" type = "button" class="topics" id = "topic_button" style="background: #ffffff;border-radius: 0px;min-height: 0px;margin: 0px 0px 0px 0px;padding: 1px;"><i class="grab fas fa-plus-circle"></i></button></li>');
+        }
     }
     document.querySelector('.add_inferred_topics').innerText = 'Remove inferred topics';
     }
     else {
-        inferred_topics_node.forEach(function(el){
+        inferred_topics_list1.forEach(function(el){
             el.remove();
         });
         document.querySelector('.add_inferred_topics').innerText = 'Add inferred topics';

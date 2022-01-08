@@ -138,14 +138,13 @@ TIME_ZONE = config['SESSION']['timezone']
 
 ADMINS = [('Tanay', 'tanay.aggarwal@open.ac.uk'), ('Angelo', 'angelo.salatino@open.ac.uk')]
 MANAGERS = ADMINS
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = False
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+SERVER_MAIL = 'noreply@open.ac.uk'
 EMAIL_PORT = 25
 EMAIL_HOST = 'smtpmail.open.ac.uk'
 DEFAULT_FROM_EMAIL = 'noreply@open.ac.uk'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'noreply@open.ac.uk'
+
 
 
 
