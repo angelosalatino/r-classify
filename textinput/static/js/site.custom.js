@@ -503,7 +503,7 @@ $('.add_inferred_topics').on('click', function(e){
         var flag = false;
         for (var j=0; j<inferred_topics_list2.length; j++) {
             // console.log(inferred_topics_list2[j].innerText.toLowerCase(), inferred_topics[i])
-            if (inferred_topics_list2[j].innerText.toLowerCase() == inferred_topics[i] + "  ") {
+            if (inferred_topics_list2[j].innerText.toLowerCase() == inferred_topics[i]) {
                 flag = true;
                 break;
             }    
