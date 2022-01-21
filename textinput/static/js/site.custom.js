@@ -49,7 +49,7 @@ $('.tab a').on('click', function (e){
 $('a.info').on('click', function (e){
     e.preventDefault(); 
 });
-
+// detection of browser
 function getBrowser() {
   if( navigator.userAgent.indexOf("Chrome") != -1 ) {
     return "Chrome";
@@ -131,7 +131,7 @@ $(document).ready(function(){
         }
     });
 });
-
+// updation of topics in selected topics list
 function basedatachange() {
     var topics = $('#basedatadrag').val();
 	topics = topics.replace(/}{/g,", ");
@@ -154,7 +154,7 @@ $(document).ready(function(){
 	$('#added_topics').val('');
 	$('#basedatadrag').val('');
 });
-
+// move topics from suggested topics to selected topics
 $(document).on("click",".topics",function(e){
 	var list1 = document.getElementById("list1");
     var list2 = document.getElementById("list2");
@@ -170,7 +170,7 @@ $(document).on("click",".topics",function(e){
         document.querySelector(".add_all").innerText = 'Remove all topics';
     }
 });
-
+// removal and selection of all topics
 $(document).on("click",".add_all",function(e){
 	e.preventDefault();
 	var list1 = document.getElementById("list1");
@@ -352,7 +352,7 @@ $('#abstract_button').on('click', function(){
     $('#abstract_button').hide(0)
 }) 
 
-
+// to show text in title, abstract and keywords field
 $('#pdftextform').on('submit', function(event) {
 	event.preventDefault();
 	$('#spinner').show(0);
@@ -390,7 +390,7 @@ function pdf_topics() {
 	});
 }
 			
-
+// copy topics on Clipboard
 function save_topics() {
 	$.ajax({
 		url : "topics/",
@@ -493,16 +493,17 @@ function display_topics(json) {
     console.log(json)
 };
 
-
+// addition of inferred topics
 $('.add_inferred_topics').on('click', function(e){
     e.preventDefault();
     var inferred_topics_list1 = document.querySelectorAll("#list1 .inferred_topics")
     var inferred_topics_list2 = document.querySelectorAll("#list2 .inferred_topics")
+    // to check existence of inferred topics in suggested topics
     if (inferred_topics_list1.length == 0 ) {
 	for (var i = 0; i<inferred_topics.length; i++) {
         var flag = false;
         for (var j=0; j<inferred_topics_list2.length; j++) {
-            // console.log(inferred_topics_list2[j].innerText.toLowerCase(), inferred_topics[i])
+            // matching algorithm to check the inferred topics that are already present in selected topics
             if (inferred_topics_list2[j].innerText.toLowerCase().trim() == inferred_topics[i].trim()) {
                 flag = true;
                 break;
