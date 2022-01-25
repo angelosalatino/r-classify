@@ -361,7 +361,7 @@ $('#pdftextform').on('submit', function(event) {
         $.ajax({
             url : "input/",
             type : "POST",
-            data : { abstract_text : "<p><b>Title:</b></p>"+ "&nbsp" + $('#pdf_title').val() + "<br/>" + "<p><b>Abstract:</b></p>" + "&nbsp" +  $('#pdftext').val() + "<br/>" + "<p><b>Keywords:</b></p>" + "&nbsp" + $('#pdf_keywords').val() },
+            data : { abstract_text : '<p><b>Title:</b></p>' + '\xa0' + $('#pdf_title').val() + '<br/>' + '<p><b>Abstract:</b></p>' + '\xa0' +  $('#pdftext').val() + '<br/>' + '<p><b>Keywords:</b></p>' + '\xa0' + $('#pdf_keywords').val() },
             success : function(json) {
                 display_topics(json);
             },
@@ -544,7 +544,7 @@ function annotate_doc(json) {
     });
 	for (let iter=0;iter<keys.length;iter++){
         function escapeRegExp(regexp) {
-            return regexp.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            return regexp.replace(/[-\/\\^$*+?:.()|[\]{}]/g, '\\$&');
         }
         var regexp = escapeRegExp(keys[iter]);
         let regex = new RegExp('\\b' + regexp,'ig');
