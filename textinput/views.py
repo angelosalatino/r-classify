@@ -27,6 +27,11 @@ dir_pdf = os.path.dirname(os.path.realpath(__file__))
 DEBUG = True 
 
 def home_view(request, abs_text=None):
+    """[This function handles the at most uses per session by a user]
+
+    Args:
+        request ([session]): [The request of usage at the users/clients side.]
+    """
     times_accessed = request.session.get('access', None)
     config = configparser.ConfigParser()
     config.read('config.ini')
@@ -44,6 +49,14 @@ def home_view(request, abs_text=None):
 
 
 def abstract_input(request):
+    """[abstract_input is the text data  processed by the cso classifier to return keywords.]
+
+    Args:
+        request ([post]): [the text data is posted onto the Django server.]
+
+    Returns:
+        [text]: [The returned text data is further processed to generate topics/keywords.]
+    """
     if request.method == 'POST':
         abstract_text = request.POST['abstract_text']
         return return_topics(request, abstract_text)
@@ -144,6 +157,13 @@ def pdf_input_old(request):
     
 
 def pdf_input(request):
+    """[pdf_input is the main function responsible for processing PDFs.
+    The PDFs posted on Django Server are stored on temporary basis and then sent to the GROBID sitting on remote server, the converted XML is returned to the Web CSO Classifier and further converted into python dictionary.
+    ]
+
+    Args:
+        request ([POST]): [The PDFs are posted on Django server, and stored at temporary file path.]
+    """
     config = configparser.ConfigParser()
     config.read('config.ini')     
     if request.method == "POST":
@@ -252,6 +272,15 @@ def pdf_input(request):
 
 
 def return_topics(request, text):
+    """[The text data returned by pdf_input function is further processed here, and treated as input to feed into CSO Classifier. This function also ensures the usability of the Web CSO Classifier based on the PDFs processed per session.]
+
+    Args:
+        request ([session]): [The session request is an unique request generated each and everytime user exceses Web CSO Classifier.]
+        text ([json]): [The text data returned by pdf_input function.]
+
+    Returns:
+        [json]: [The returned text data is feed-ed into the CSO Classifier in form of JSON dump.]
+    """
     request.session['access'] = request.session['access'] + 1
     if request.session['access'] > request.session['max_access']:
         return None
@@ -266,6 +295,14 @@ def return_topics(request, text):
 
 ###### Text and PDF are processed for classification
 def run_classifier(text):
+    """[The returned text data is feed-ed into the CSO Classifier here.]
+
+    Args:
+        text ([json]): [The text data extracted from PDFs as well as the input text data by user.]
+
+    Returns:
+        [json]: [Data returned by CSO Classifier.]
+    """
     config = configparser.ConfigParser()
     config.read('config.ini')
     ######## TO BE REMOVED
@@ -280,7 +317,7 @@ def run_classifier(text):
         return requests.post(url, data=json.dumps(data), headers=headers), "remote"
 
 
-######### To return with keywords after processing text and PDF [OLD DEFINITION]
+######### To return with keywords after processing text and PDF [OLD Function]
 
 def generate_record_old(request, content, topic_list, provenance):
     if provenance == "remote":
@@ -312,9 +349,20 @@ def generate_record_old(request, content, topic_list, provenance):
     return response_data
 
 
-######### To return with keywords after processing text and PDF [CURRENTLY IN USE DEFINITION]
+######### To return with keywords after processing text and PDF [CURRENTLY IN USE FUNCTION]
 
 def generate_record(request, content, topic_list, provenance):
+    """[This function shows the keywords returned by the CSO Classifier.]
+
+    Args:
+        request ([session]): [To record the users session id.]
+        content ([text/json]): [Text data from which keywords are supposed to be extracted.]
+        topic_list ([json]): [List of all the topics returned by CSO Classifier.]
+        provenance ([Flag]): [This variable justifies the accessibility of CSO Classifier, whether it is used from remote server or accessed within the server and this condition can be eliminated in future is Web CSO Classifier is only supposed to be operated on OU's Server.]
+
+    Returns:
+        [json/text]: [This function returns with topics list (keywords), explanation (annotated text), and inferred topics.]
+    """
     if provenance == "remote":
         if type(topic_list) == requests.models.Response:
             if type(topic_list.text) == str:
@@ -351,6 +399,14 @@ def generate_record(request, content, topic_list, provenance):
 
 ####### User data as well as topics are saved into database
 def save_topics(request):
+    """[It saves the returned data as well as user data into the database.]
+
+    Args:
+        request ([POST]): [The returned and user added topics are posted into the database.]
+
+    Returns:
+        [json]: [The user and returned data is saved into database in plain text format.]
+    """
     if request.method == 'POST':
         topics_chosen = convert_json(request.POST['topics_chosen'])
         added_topics = convert_json(request.POST['added_topics'])

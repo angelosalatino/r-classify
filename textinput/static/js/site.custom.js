@@ -278,7 +278,7 @@ $('#pdf_form').on('submit', function(event) {
                 $('#title_button').show(0)
             }
             else {
-                $('label[for="df_title"]').show(0)
+                $('label[for="pdf_title"]').show(0)
                 $('#pdf_title').show(0)
                 $('#title_button').hide(0)
             }
@@ -496,10 +496,12 @@ function display_topics(json) {
 // addition of inferred topics
 $('.add_inferred_topics').on('click', function(e){
     e.preventDefault();
+    var list1 = document.getElementById("list1");
+    var list2 = document.getElementById("list2");
     var inferred_topics_list1 = document.querySelectorAll("#list1 .inferred_topics")
     var inferred_topics_list2 = document.querySelectorAll("#list2 .inferred_topics")
     // to check existence of inferred topics in suggested topics
-    if (inferred_topics_list1.length == 0 ) {
+    if (inferred_topics_list1.length == 0) {
 	for (var i = 0; i<inferred_topics.length; i++) {
         var flag = false;
         for (var j=0; j<inferred_topics_list2.length; j++) {
@@ -513,6 +515,7 @@ $('.add_inferred_topics').on('click', function(e){
 		    $("#gen_list").append('<li>'+inferred_topics[i]+"</li>");
             $('#list1').append('<li class="ui-state-default button inferred_topics"> <span>'+inferred_topics[i]+'</span> <i class="fas fa-network-wired"></i> <a class="info" href="http://cso.kmi.open.ac.uk/topics/'+inferred_topics[i].replace(/\s/g,"_")+'" target="_blank"><i class="fas fa-info-circle grey"></i></a><button value = "' + inferred_topics[i] + '" type = "button" class="topics" id = "topic_button" style="background: #ffffff;border-radius: 0px;min-height: 0px;margin: 0px 0px 0px 0px;padding: 1px;"><i class="grab fas fa-plus-circle"></i></button></li>');
         }
+        
     }
     document.querySelector('.add_inferred_topics').innerText = 'Remove inferred topics';
     }
@@ -521,6 +524,13 @@ $('.add_inferred_topics').on('click', function(e){
             el.remove();
         });
         document.querySelector('.add_inferred_topics').innerText = 'Add inferred topics';
+
+    }
+    if (list1.childElementCount == 0){
+        document.querySelector(".add_all").innerText = 'Remove all topics';
+    }
+    else {
+        document.querySelector(".add_all").innerText = 'Select all topics';
     }
 })
               
