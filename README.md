@@ -13,7 +13,7 @@ Add TOC here.
 
 The Web CSO-Classifier is the successor of ***CSO-Classifier***. It is developed escalate the resourcefulness of ***CSO-Classifier*** to all researchers regardless of their technical, programming and coding abilities, The Web CSO-Classifier empowers researchers to process the research papers using the metadata (such as title, abstract and keywords) and returns the keywords as output for that particular research paper to improve its retrievability.
 
-![enter image description here](https://ea1-api.asm.skype.com/v1/objects/0-ea-d1-16714a1770b007dc94fc55f0062af417/views/imgpsh_fullsize_anim)
+![image](https://user-images.githubusercontent.com/59340198/187091393-daabdf61-6596-4cbe-abc8-7c91770c359f.png)
 **Figure 1**: Architecture of The Web CSO-Classifier
 
 ## Getting started
@@ -75,7 +75,7 @@ Now, as the prerequisites are already installed on the system. The database setu
 
 First of all, download the **_Community Edition_** version of the **_MongoDB_** and install it with the default settings:
 
-![enter image description here](https://api.asm.skype.com/v1/objects/0-sa-d3-60d40264c236b80a9d9808bfe411e898/views/imgpsh_fullsize_anim)
+![image](https://user-images.githubusercontent.com/59340198/187091360-299f4fd3-aa4b-4bda-b60f-209e3c6b2052.png)
 
 It is also recommended to install the **MongoDB Compass** along with the **MongoDB**.
 
@@ -109,7 +109,7 @@ Now, we can run the following command into the **_mongo shell_** to check whethe
 
     ...\> show dbs
 
-# Setting-Up Development Server:
+## Setting-Up Development Server:
 
 Finally, the development process come into the play and development server can be started using the following command:
 
