@@ -234,11 +234,3 @@ And, the following addresses will give access to GROBID's admin panel and tell u
 ...\> 127.0.0.1:8070/api/version
 ````
 **_Note:_** Please make sure that GROBID is installed in a path with no parent directories containing spaces.
-
-[//]: # (-----------------------------------------------------------------------------------------------------------------------------------)
-[//]: # (images used in research paper)
-[//]: # (![home](https://user-images.githubusercontent.com/59340198/188116051-d7e9ac88-0f38-43aa-89bb-df5da27c5bdd.png))
-[//]: # (![changes](https://user-images.githubusercontent.com/59340198/188116231-34e5d8cf-74f8-4ec5-ad38-fe5af4db6c84.png))
-[//]: # (![without inferred topics](https://user-images.githubusercontent.com/59340198/188116255-27521013-2ff1-48d8-8117-1dc0f3c2459c.png))
-[//]: # (![with inferred topics](https://user-images.githubusercontent.com/59340198/188116344-530368f7-7041-4422-8336-d105f741f207.png))
-[//]: # (![annotated text](https://user-images.githubusercontent.com/59340198/188116368-aee40e97-ac6c-4d5c-90c6-577dea8a7227.png))
