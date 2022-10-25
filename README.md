@@ -1,5 +1,7 @@
 #  The Web CSO-Classifier
-Add badges here.
+
+[![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Abstract.
 In the past few decades, we have observed an ever-increased rate of publication. In such a deluge of research documents it has become harder to find the relevant content. Hence, it is crucial that the research documents are properly annotated with their relevant keywords so to increase their chance of being properly indexed and subsequently retrieved. In this manuscript, we present the Web CSO Classifier, a tool that assists researchers in identifying the most relevant keywords according to a large-scale ontology of research areas.
