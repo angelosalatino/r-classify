@@ -30,7 +30,7 @@ ontologies, data mining, conference proceedings, metadata">
         <meta name="author" content="Damian Dadswell - KMi">    
 		<link rel="shortcut icon" href="{% static "img/favicon.png"%}" type="image/png">
 
-        <title>Classify Your Paper</title>
+        <title>R-Classify: Classify Your Paper</title>
 		
 		<!-- Font Awesome -->
 		<script src="https://kit.fontawesome.com/fbb5ed6dc4.js" crossorigin="anonymous"></script>
@@ -76,7 +76,7 @@ ontologies, data mining, conference proceedings, metadata">
 			<div class="warn" id="browser_warn" hidden>
 			<p class="browser_text">Warning: some functionalities of this web app might not work on your browser. We recommend you to use Google Chrome</p>
 			</div>
-            <h1>Classify <small><b>Your Paper</b></small></h1>
+            <h1>R-Classify</h1>
         </header>
         <!-- header end -->
         
@@ -86,7 +86,7 @@ ontologies, data mining, conference proceedings, metadata">
                 <div id="about">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="has-reveal">
-                            <p>The CSO Classifier takes as input the abstract or the full text of an article and produces a set of relevant research topics drawn from the <a href="http://cso.kmi.open.ac.uk" target="_blank">Computer Science Ontology</a>. It also allows the user to inspect and improve this selection before exporting it in different formats.</p>
+                            <p>R-Classify takes as input the title and abstract of an article and produces a set of relevant research topics drawn from the <a href="http://cso.kmi.open.ac.uk" target="_blank">Computer Science Ontology</a>. It also allows the user to inspect and improve this selection before exporting it in different formats.</p>
                             <!--<span class="reveal-span">
                                 <details>                            
                                     <summary></summary>
@@ -175,7 +175,7 @@ ontologies, data mining, conference proceedings, metadata">
                             <form action="/topics/" method="post" id="topics_form">
                                 {% csrf_token %}
 								<div class="topic_buttons">
-                                <button class="add_inferred_topics">Add inferred topics</button>
+                                <button class="add_inferred_topics">Add super topics</button>
                                 <label class="suggested" id="scrollLabel">Suggested Topics</label>
                                 <ul id="list1" class="topics droptrue">
                                 </ul>
