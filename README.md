@@ -1,4 +1,4 @@
-#  The Web CSO-Classifier
+#  R-Classify
 
 [![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -8,21 +8,35 @@ In the past few decades, we have observed an ever-increased rate of publication.
 
 
 ## Table of contents
-Add TOC here.
+- [R-Classify](#r-classify)
+  - [Abstract.](#abstract)
+  - [Table of contents](#table-of-contents)
+  - [About](#about)
+  - [Getting started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Setting-Up R-Classify](#setting-up-r-classify)
+    - [Installing the requirements](#installing-the-requirements)
+      - [Unable to install requirements](#unable-to-install-requirements)
+  - [Setting-Up the MongoDB](#setting-up-the-mongodb)
+  - [Data-Base Migration into the MongoDB:](#data-base-migration-into-the-mongodb)
+  - [Setting-Up Development Server:](#setting-up-development-server)
+  - [Fields and features of the Data-Base:](#fields-and-features-of-the-data-base)
+  - [Creating an Admin User for Django Admin-Panel:](#creating-an-admin-user-for-django-admin-panel)
+  - [Setup Procedurals for GROBID (GeneRation Of BIbliographic Data):](#setup-procedurals-for-grobid-generation-of-bibliographic-data)
 
 
 ## About
 
-The Web CSO-Classifier is the successor of ***CSO-Classifier***. It is developed escalate the resourcefulness of ***CSO-Classifier*** to all researchers regardless of their technical, programming and coding abilities, The Web CSO-Classifier empowers researchers to process the research papers using the metadata (such as title, abstract and keywords) and returns the keywords as output for that particular research paper to improve its retrievability.
+R-Classify is the successor of ***CSO-Classifier***. It is developed escalate the resourcefulness of ***CSO-Classifier*** to all researchers regardless of their technical, programming and coding abilities, R-Classify empowers researchers to process the research papers using the metadata (such as title, abstract and keywords) and returns the keywords as output for that particular research paper to improve its retrievability.
 
-![image](https://user-images.githubusercontent.com/59340198/187091393-daabdf61-6596-4cbe-abc8-7c91770c359f.png)
-**Figure 1**: Architecture of The Web CSO-Classifier
+![image](figures/architecture.png)
+**Figure 1**: Architecture of R-Classify
 
 ## Getting started
 ### Prerequisites
-The Web CSO-Classifier requires **_Python 3.6.8_** installed on your machine. It can also work with the other versions of the **_Python_**. But, **_Python 3.6.8_** is preferred for the ease and hassle-free setup.
+R-Classify requires **_Python 3.6.8_** installed on your machine. It can also work with the other versions of the **_Python_**. But, **_Python 3.6.8_** is preferred for the ease and hassle-free setup.
 
-### Setting-Up The Web CSO-Classifier
+### Setting-Up R-Classify
 First of all, setup a virtual environment for the **_Django_**. It is preferred to use  **_Python 3.6.8_** to setup the virtual environment.
 
 You can use the following command to setup the virtual environment.
@@ -117,7 +131,7 @@ Finally, the development process come into the play and development server can b
 
     ...\> pyhton manage.py runserver
 
-This will run the server on localhost with the homepage at ````localhost:8000/home/````. But unfortunately, that doesn't lead to the employment of all the functionalities of the Web CSO-Classifier.
+This will run the server on localhost with the homepage at ````localhost:8000/home/````. But unfortunately, that doesn't lead to the employment of all the functionalities of R-Classify.
 
 To employ all the functionalities into the action, download the respective packages using the following commands:
  
