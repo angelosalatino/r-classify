@@ -517,13 +517,14 @@ $('.add_inferred_topics').on('click', function(e){
         }
         
     }
-    document.querySelector('.add_inferred_topics').innerText = 'Remove inferred topics';
+	    // super topics belongs to variable inferred topics
+    document.querySelector('.add_inferred_topics').innerText = 'Remove super topics';
     }
     else {
         inferred_topics_list1.forEach(function(el){
             el.remove();
         });
-        document.querySelector('.add_inferred_topics').innerText = 'Add inferred topics';
+        document.querySelector('.add_inferred_topics').innerText = 'Add super topics';
 
     }
     if (list1.childElementCount == 0){
