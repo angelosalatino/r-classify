@@ -1,12 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
-from django.core.files.uploadhandler import TemporaryFileUploadHandler
+from django.http import HttpResponse
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
 import json
 import os
-import sys
 import uuid
 import shutil
 import xmltodict
@@ -16,12 +14,11 @@ from grobid_client.grobid_client import GrobidClient
 from .models import data_record, data_record_dev
 from .forms import abstractForm, pdfForm, pdftextform
 from .cso_classifier.classifier import classifier
-from datetime import datetime, timedelta
+from datetime import datetime
 from ipware import get_client_ip
 import configparser
 import requests
 import pytz
-import pdb
 
 dir_pdf = os.path.dirname(os.path.realpath(__file__))
 DEBUG = True 
@@ -63,99 +60,6 @@ def abstract_input(request):
         
 
 
-
-def pdf_input_old(request):
-    config = configparser.ConfigParser()
-    config.read('config.ini')     
-    if request.method == "POST":
-        # id_paper_input = (os.path.join(dir_pdf, 'resources\\input_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
-        # id_paper_output = (os.path.join(dir_pdf, 'resources\\output_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
-
-        temporary_folder = "{}_{}_{}".format(uuid.uuid4().hex, str(datetime.now().date()), str(datetime.now().time()).replace(':', '.'))
-        id_paper_input = os.path.join(dir_pdf, 'resources', 'input_pdf', temporary_folder)
-        id_paper_output = os.path.join(dir_pdf, 'resources', 'output_pdf', temporary_folder)
-        
-        uploaded_files = request.FILES.get("pdf_paper")
-        file_path = default_storage.save('media.pdf', ContentFile(uploaded_files.read()))
-        tmp_file = os.path.join(settings.MEDIA_ROOT, file_path)
-        if not os.path.exists(id_paper_input):
-            os.makedirs(id_paper_input)
-            os.makedirs(id_paper_output)
-            if DEBUG: print("Directory " , id_paper_input, id_paper_output, " Created ")
-            shutil.copy(tmp_file, id_paper_input)
-        else:    
-            if DEBUG: print("Directory " , id_paper_input ,  " already exists")  
-        client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
-        client.process("processHeaderDocument", id_paper_input, id_paper_output, consolidate_citations=True, force=True)
-
-# Condition to choose between Curl API and GROBID web interface       
-
-# Curl API
-
-        if os.stat(id_paper_output).st_size == 0:
-            for file in Path(id_paper_input).iterdir():
-                if file.suffix == '.pdf':
-                    with open(file, 'rb') as file:
-                        files = {
-                            'input': file.read()
-                        }
-                    
-                    # response = requests.post('https://cso.kmi.open.ac.uk/grobid-test/api/processHeaderDocument', files=files)
-                    
-                    the_url = "http://" + config['GROBID_SETTINGS']['grobid_server']
-                    if len(config['GROBID_SETTINGS']['grobid_port']) > 0:
-                        the_url += ":" + config['GROBID_SETTINGS']['grobid_port']
-                    the_url += "/api/processHeaderDocument"
-                    
-                    response = requests.post(the_url, files=files)
-                    
-                    paper_dict = xmltodict.parse(response.text)
-
-# GROBID web interface Client
-
-        else:
-            for file in Path(id_paper_output).iterdir():
-                if file.suffix == '.xml':
-                    with open(file, 'r', encoding='utf-8') as file:
-                        xml = file.read()
-                        paper_dict = xmltodict.parse(xml)
-
-# Process title, abstract and keywords
-
-             
-        try:
-            title = paper_dict['TEI']['teiHeader']['fileDesc']['titleStmt']['title']['#text']
-        except:
-            title = ""
-            if DEBUG: print("Unable to find title")
-        try:
-            abstract = paper_dict['TEI']['teiHeader']['profileDesc']['abstract']['p']
-        except:
-            abstract = ""
-            if DEBUG: print("Unable to find abstract")
-        
-        try:
-            if "term" in paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']:
-                keywords = ", ".join(paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']['term'])
-            else:
-                keywords = paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']
-        except:
-            keywords = ""
-            if DEBUG: print("Unable to find keywords")
-
-# Dump processed xml to python dictionary
-
-        pdf_class = {"title": title, "abstract": abstract, "keywords": keywords }
-        shutil.rmtree(id_paper_input)
-        shutil.rmtree(id_paper_output)
-        os.remove(tmp_file)
-        return HttpResponse(
-            json.dumps(pdf_class),
-            content_type = "application/json"
-        )
-    
-    
-
 def pdf_input(request):
     """[pdf_input is the main function responsible for processing PDFs.
     The PDFs posted on Django Server are stored on temporary basis and then sent to the GROBID sitting on remote server, the converted XML is returned to the Web CSO Classifier and further converted into python dictionary.
@@ -167,8 +71,6 @@ def pdf_input(request):
     config = configparser.ConfigParser()
     config.read('config.ini')     
     if request.method == "POST":
-        # id_paper_input = (os.path.join(dir_pdf, 'resources\\input_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
-        # id_paper_output = (os.path.join(dir_pdf, 'resources\\output_pdf\\')) + uuid.uuid4().hex + '_' + str(datetime.now().date()) + '_' + str(datetime.now().time()).replace(':', '.')
         
         temporary_folder = "{}_{}_{}".format(uuid.uuid4().hex, str(datetime.now().date()), str(datetime.now().time()).replace(':', '.'))
         id_paper_input = os.path.join(dir_pdf, 'resources', 'input_pdf', temporary_folder)
@@ -188,40 +90,34 @@ def pdf_input(request):
 
 ####### Curl API
         try:
-            if True:#config['GROBID_SETTINGS']['use_curl']:
-                if DEBUG: print("I am accessing Grobid through the CURL")
+            if config.getboolean('GROBID_SETTINGS', 'use_curl', fallback=True):
+                if DEBUG: print("Accessing GROBID through CURL")
                 for file in Path(id_paper_input).iterdir():
                     if file.suffix == '.pdf':
-                        with open(file, 'rb') as file:
-                            files = {
-                                'input': file.read()
-                            }
+                        with open(file, 'rb') as pdf_file:
+                            files = {'input': pdf_file.read()}
                         
-                        # response = requests.post('https://cso.kmi.open.ac.uk/grobid-test/api/processHeaderDocument', files=files)
-                        #### TEST CONNECTION!!
-                        the_url = "http://" + config['GROBID_SETTINGS']['grobid_server']
-                        if len(config['GROBID_SETTINGS']['grobid_port']) > 0:
-                            the_url += ":" + config['GROBID_SETTINGS']['grobid_port']
-                        the_url += "/api/processHeaderDocument"
+                        grobid_url = f"http://{config['GROBID_SETTINGS']['grobid_server']}{config['GROBID_SETTINGS']['grobid_path']}"
+                        if DEBUG: print(grobid_url)
                         
-                        response = requests.post(the_url, files=files)
-                        #### ADD try 
-    
+                        response = requests.post(grobid_url, files=files)
+                        response.raise_for_status()  # Ensure we raise an error for bad responses
+                        
                         paper_dict = xmltodict.parse(response.text)
     
                 
                 
             else: 
-                if DEBUG: print("I am running the Grobid Python Client")
-    ####### THROUGH PYTHON GROBID CLIENT
+                if DEBUG: print("Using Grobid Python Client")
                 client = GrobidClient(config['GROBID_SETTINGS']['grobid_server'], config['GROBID_SETTINGS']['grobid_port'])
                 client.process("processHeaderDocument", id_paper_input, id_paper_output, consolidate_citations=True, force=True)
                 
-                for file in Path(id_paper_output).iterdir():
-                    if file.suffix == '.xml':
-                        with open(file, 'r', encoding='utf-8') as file:
-                            xml = file.read()
-                            paper_dict = xmltodict.parse(xml)
+                xml_files = list(Path(id_paper_output).glob('*.xml'))
+                if xml_files:
+                    with open(xml_files[0], 'r', encoding='utf-8') as file:
+                        paper_dict = xmltodict.parse(file.read())
+                else:
+                    raise FileNotFoundError("No XML files found in the output directory")
     
          
     
@@ -234,26 +130,42 @@ def pdf_input(request):
     
     # Process title, abstract and keywords
     
-                 
+                                  
             try:
-                title = paper_dict['TEI']['teiHeader']['fileDesc']['titleStmt']['title']['#text']
+                title = paper_dict.get('TEI', {}).get('teiHeader', {}).get('fileDesc', {}).get('titleStmt', {}).get('title', {}).get('#text', "")
+                if not title:
+                    title = paper_dict.get('TEI', {}).get('teiHeader', {}).get('sourceDesc', {}).get('biblStruct', {}).get('analytic', {}).get('title', {}).get('#text', "")
+                if DEBUG: print("Title:", title if title else "Unable to find title")
             except:
                 title = ""
                 if DEBUG: print("Unable to find title")
+
             try:
-                abstract = paper_dict['TEI']['teiHeader']['profileDesc']['abstract']['p']
+                abstract = paper_dict.get('TEI', {}).get('teiHeader', {}).get('profileDesc', {}).get('abstract', {})
+                if isinstance(abstract, dict):
+                    abstract = abstract.get('div', {}).get('p', "")
+                if not isinstance(abstract, str):
+                    abstract = ""
+                if DEBUG: print("Abstract:", abstract if abstract else "Unable to find abstract")
             except:
                 abstract = ""
                 if DEBUG: print("Unable to find abstract")
-            
+
             try:
-                if "term" in paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']:
-                    keywords = ", ".join(paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']['term'])
+                if "term" in paper_dict.get('TEI', {}).get('teiHeader', {}).get('profileDesc', {}).get('textClass', {}).get('keywords', {}):
+                    keywords = paper_dict.get('TEI', {}).get('teiHeader', {}).get('profileDesc', {}).get('textClass', {}).get('keywords', {}).get('term', [])
                 else:
-                    keywords = paper_dict['TEI']['teiHeader']['profileDesc']['textClass']['keywords']
+                    keywords = paper_dict.get('TEI', {}).get('teiHeader', {}).get('profileDesc', {}).get('textClass', {}).get('keywords', {})
+                if isinstance(keywords, list):
+                    keywords = ", ".join(keywords)
+                if not isinstance(keywords, str):
+                    keywords = ""
+                if DEBUG: print("Keywords:", keywords if keywords else "Unable to find keywords")
             except:
                 keywords = ""
                 if DEBUG: print("Unable to find keywords")
+
+
     
     # Dump processed xml to python dictionary
     

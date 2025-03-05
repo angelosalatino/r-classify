@@ -354,22 +354,27 @@ $('#abstract_button').on('click', function(){
 
 // to show text in title, abstract and keywords field
 $('#pdftextform').on('submit', function(event) {
-	event.preventDefault();
-	$('#spinner').show(0);
-	var data = new FormData($('#pdftextform').get(0));
-        reset_error();
-        $.ajax({
-            url : "input/",
-            type : "POST",
-            data : { abstract_text : '<p><b>Title:</b></p>' + '\xa0' + $('#pdf_title').val() + '<br/>' + '<p><b>Abstract:</b></p>' + '\xa0' +  $('#pdftext').val() + '<br/>' + '<p><b>Keywords:</b></p>' + '\xa0' + $('#pdf_keywords').val() },
-            success : function(json) {
-                display_topics(json);
-            },
-            error : function(xhr,errmsg,err) {
-                document.getElementById("text_error").innerHTML = "Too many accesses"
-            }
-        });
-});	
+    event.preventDefault();
+    $('#spinner').show();
+    const data = {
+        abstract_text: `<p><b>Title:</b></p> ${$('#pdf_title').val()}<br/><p><b>Abstract:</b></p> ${$('#pdftext').val()}<br/><p><b>Keywords:</b></p> ${$('#pdf_keywords').val()}`
+    };
+    reset_error();
+    $.ajax({
+        url: "input/",
+        type: "POST",
+        data: data,
+        success: function(json) {
+            display_topics(json);
+        },
+        error: function(xhr, errmsg, err) {
+            $('#text_error').text("Too many accesses");
+        },
+        complete: function() {
+            $('#spinner').hide();
+        }
+    });
+});
 
 
 function pdf_topics() {
